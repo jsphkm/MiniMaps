@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Google Maps API</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600" rel="stylesheet" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class='leftpanelcontainer'>
+      <div id='leftpanel'>
+        <div id='bluecontainer'>
+          <div id='travelmodecontainer' role='radiogroup'>
+            <div class='driveclass'>
+              <button class='transmodebutton selectedmode' name='modebuttons' role='radio' aria-label='Driving' aria-checked='true'>
+                <img src='img/driveicon.svg' />
+                <span class='tooltiptextmode'>Driving</span>
+              </button>
+            </div>
+            <div class='walkclass'>
+              <button class='transmodebutton' name='modebuttons' role='radio' aria-label='Walking' aria-checked='false'>
+                <img src='img/walkicon.svg' />
+                <span class='tooltiptextmode'>Walking</span>
+              </button>
+            </div>
+          </div>
+          <div class='entrycontainer'>
+            <div class='inputcontainer'>
+              <div class='startcontainer'>
+                <input id='start' class='addressinput' type='text' placeholder='Choose starting point...'/>
+                <span class='inputunderline'></span>
+              </div>
+              <div class='endcontainer'>
+                <input id='end' class='addressinput' type='text' placeholder='Choose destination...'/>
+                <span class='inputunderline'></span>
+              </div>
+            </div>
+            <div class='reversecontainer'>
+              <button class='reversebutton' aria-label='Reverse starting point and destination'>
+                <img class='reverseimg' src='img/reverseicon.svg' />
+                <span class='tooltiptextreverse'>Reverse starting point and destination</span>
+              </button>
+            </div>
+
+
+          </div>
+        </div>
+        <div id='listofDirections'></div>
+      </div>
+    </div>
+
+    <div id="map"></div>
+    <script defer type="text/javascript" src="index.js"></script>
+  </body>
+</html>
