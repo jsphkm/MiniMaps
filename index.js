@@ -28,8 +28,7 @@ function initMap() {
 
   var directionsService = new google.maps.DirectionsService;
   var directionsRenderer = new google.maps.DirectionsRenderer;
-  directionsRenderer.setMap(map);
-  directionsRenderer.setPanel(document.getElementById('listofDirections'));
+  directionsRenderer.setPanel(document.getElementById('listofdirections'));
 
   var originInput = document.getElementById('start');
   var destinationInput = document.getElementById('end');
@@ -41,13 +40,13 @@ function initMap() {
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(control);
   infoWindow = new google.maps.InfoWindow;
 
-  startendlistener(directionsService, directionsRenderer, map);
+  startendlistener(directionsService, directionsRenderer);
 
-  renderYourLocationButton(map);
+  renderYourLocationButton();
 }
 
 
-function renderYourLocationButton(map){
+function renderYourLocationButton(){
   var controlDiv = document.createElement('div');
   var firstChild = document.createElement('button');
   firstChild.id = 'yourlocButton';
@@ -72,7 +71,6 @@ function renderYourLocationButton(map){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        //  This is where the pointer can be placed for Current Location, with latlng
 
         var pos = {
           lat: position.coords.latitude,
@@ -111,29 +109,32 @@ function renderYourLocationButton(map){
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
 }
 
-function startendlistener(directionsService, directionsRenderer, map){
+function startendlistener(directionsService, directionsRenderer){
   document.getElementById('start').addEventListener('change', onChangeHandler);
   document.getElementById('end').addEventListener('change', onChangeHandler);
 
   function onChangeHandler() {
-    resetMap(null);
+    resetMap();
     let start = document.getElementById('start').value
     let end = document.getElementById('end').value
     if (start && end) {
+      directionsRenderer.setMap(map);
       calculateAndDisplayRoute(directionsService, directionsRenderer);
     }
     else {
+      directionsRenderer.setMap(null);
+      directionsRenderer.set('directions', null);
       console.log('only one address is typed');
       if (start == '') {
         $('#start').focus();
         if (end) {
-          displayOneLocation(end, map);
+          displayOneLocation(end, directionsRenderer);
         }
       }
       else if (end == '') {
         $('#end').focus();
         if (start) {
-          displayOneLocation(start, map);
+          displayOneLocation(start, directionsRenderer);
         }
       }
     }
@@ -141,9 +142,9 @@ function startendlistener(directionsService, directionsRenderer, map){
 }
 
 
-function resetMap(map) {
+function resetMap() {
   for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
+    markers[i].setMap(null);
   }
 }
 
@@ -175,7 +176,7 @@ $('.reversebutton').on('click', function() {
 })
 
 
-function displayOneLocation(loc, map){
+function displayOneLocation(loc, directionsRenderer){
 
   var geocoder = new google.maps.Geocoder();
   geocoder.geocode({'address': loc}, function(results, status){
@@ -186,6 +187,8 @@ function displayOneLocation(loc, map){
         position: results[0].geometry.location
       });
 
+      map.setZoom(16)
+      map.panTo(marker.position);
       markers.push(marker);
     }
     else {

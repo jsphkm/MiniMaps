@@ -55,11 +55,11 @@ input, button, submit {
 }
 
 .driveclass button img{
-  width: 24px;
+  width: 21px;
 }
 
 .walkclass button img  {
-  width: 17px;
+  width: 14px;
 }
 
 .selectedmode img {
@@ -132,8 +132,9 @@ input, button, submit {
 }
 
 .reverseimg{
+  padding-top: 10px;
   opacity: 0.6;
-  width: 20px;
+  width: 18px;
 }
 
 .transmodebutton:hover .tooltiptextmode {
