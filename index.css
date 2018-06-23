@@ -17,6 +17,13 @@ input, button, submit {
   background-color: transparent;
 }
 
+ul, li {
+  text-decoration: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .leftpanelcontainer {
   position: relative;
   z-index: 1;
@@ -27,6 +34,15 @@ input, button, submit {
   -webkit-box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3);
    -moz-box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3);
         box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3);
+  transition: 0.2s transform;
+}
+
+.leftpanelcollapsed {
+  transform: translateX(-408px);
+}
+
+.mapoverflow {
+  overflow: visible !important;
 }
 
 #travelmodecontainer {
@@ -71,7 +87,8 @@ input, button, submit {
   padding-left: 8px;
   padding-bottom: 8px;
   height: 160px;
-  background-color: #3c85f4;
+  /*background-color: #3c85f4;*/
+  background-color: #1f33c1;
 }
 
 .addressinput {
@@ -166,7 +183,7 @@ input, button, submit {
   display: flex;
 }
 
-.inputcontainer {
+.entryform {
   width: 264px;
   display: inline-block;
 }
@@ -176,8 +193,6 @@ input, button, submit {
   align-items: center;
   margin-left: 25px;
 }
-
-
 
 .reversebutton {
   position: relative;
@@ -205,3 +220,117 @@ input, button, submit {
   background-position: 0px 0px;
   background-repeat: no-repeat;
 }
+
+#listofsuggestions {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.pac-container {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+}
+
+.pac-icon {
+  margin: 0 24px 0 24px;
+  vertical-align: middle;
+}
+
+.pac-item {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  font-size: 13px;
+  font-family: 'Roboto','sans-serif' !important;
+  font-weight: 400 !important;
+}
+
+
+.sideflapcontainer {
+  position: absolute;
+  top: 8px;
+  left: 100%;
+  background-color: white;
+  opacity: 0.9;
+  -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sideflapbutton {
+  height: 100%;
+  position: relative;
+  width: 23px;
+  height: 48px;
+}
+
+.sidearrow {
+  width: 6px;
+  vertical-align: middle;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  padding-left: 2px;
+  padding-right: 3px;
+}
+
+.tooltipsideflap {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  font-size: 12px;
+  padding: 10px;
+  white-space: nowrap;
+  position: absolute;
+  z-index: 2;
+  top: 15%;
+  left: 35px;
+  transition: 0s visibility;
+}
+
+.sideflapbutton:hover .tooltipsideflap {
+  transition-delay: 0.6s;
+  visibility: visible;
+}
+
+.alertscontainer {
+  background-color: #2c5dd2;
+  padding: 20px;
+}
+
+.alertbellimg {
+  width: 11px;
+  opacity: 0.8;
+}
+
+.alerttimeinput {
+  color: white;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.alertbeforeinput {
+  color: white;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.remindertitle {
+  margin-left: 23px;
+  color: white;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.arrivebytext, .alertbeforetext {
+  color: white;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.alertbeforeinput::-webkit-datetime-edit-ampm-field {
+  display: none;
+}
+
+/* .alertbeforehourinput, .alertbeforeminutesinput:: */

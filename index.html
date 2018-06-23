@@ -16,28 +16,28 @@
           <div id='travelmodecontainer' role='radiogroup'>
             <div class='driveclass'>
               <button class='transmodebutton selectedmode' name='modebuttons' role='radio' aria-label='Driving' aria-checked='true'>
-                <img src='img/driveicon.svg' />
+                <img class='alertbellimg' src='img/driveicon.svg' alt='Driving'/>
                 <span class='tooltiptextmode'>Driving</span>
               </button>
             </div>
             <div class='walkclass'>
               <button class='transmodebutton' name='modebuttons' role='radio' aria-label='Walking' aria-checked='false'>
-                <img src='img/walkicon.svg' />
+                <img src='img/walkicon.svg' alt='Walking'/>
                 <span class='tooltiptextmode'>Walking</span>
               </button>
             </div>
           </div>
           <div class='entrycontainer'>
-            <div class='inputcontainer'>
+            <form class='entryform' action="" method="post">
               <div class='startcontainer'>
-                <input id='start' class='addressinput' type='text' placeholder='Choose starting point...'/>
+                <input id='start' class='addressinput' name='startinput' type='text' placeholder='Choose starting point...'/>
                 <span class='inputunderline'></span>
               </div>
               <div class='endcontainer'>
-                <input id='end' class='addressinput' type='text' placeholder='Choose destination...'/>
+                <input id='end' class='addressinput' name='endinput' type='text' placeholder='Choose destination...'/>
                 <span class='inputunderline'></span>
               </div>
-            </div>
+            </form>
             <div class='reversecontainer'>
               <button class='reversebutton' aria-label='Reverse starting point and destination'>
                 <img class='reverseimg' src='img/reverseicon.svg' />
@@ -47,6 +47,14 @@
           </div>
         </div>
         <div id='listofsuggestions'></div>
+        <div class='alertmenucontainer'>
+        </div>
+        <div class='sideflapcontainer'>
+          <button class='sideflapbutton'>
+            <img src='img/sidearrow.svg' class='sidearrow' alt='sidearrow'/>
+            <span class='tooltipsideflap'>Collapse side panel</span>
+          </button>
+        </div>
         <div id='listofdirections'></div>
       </div>
     </aside>

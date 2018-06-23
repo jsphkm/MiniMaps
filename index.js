@@ -1,5 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
+
   $('#start').focus();
   if (document.querySelectorAll('#map').length > 0)
   {
@@ -12,11 +13,87 @@ document.addEventListener('DOMContentLoaded', function () {
     js_file.type = 'text/javascript';
     js_file.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyAln4UsUGOrVtX4MGg4e0mGXY2GK-helLE&libraries=places&language=' + lang;
     document.getElementsByTagName('head')[0].appendChild(js_file);
+    toggleLeftPanel();
   }
 });
 
+function toggleLeftPanel() {
+  $('.sideflapbutton').click(function(e) {
+    e.preventDefault();
+    $('#map').toggleClass('mapoverflow');
+    $('.leftpanelcontainer').toggleClass('leftpanelcollapsed');
+  });
+}
+
+function arrowkeyboardcontrolHandler() {
+  $(document).on('focusin', '.leftpanelcontainer', function(e){
+    map.set('keyboardShortcuts', false);
+  });
+  $(document).on('blur', '.leftpanelcontainer', function(e){
+    map.set('keyboardShortcuts', true);
+  });
+
+}
+
+function enableBrowserNotification(){
+
+  if (!Notification) {
+    alert('Desktop notifications not available in your browser. Try Chromium.');
+    return;
+  }
+
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+}
+
+function renderReminderElements(){
+  $('.alertmenucontainer').append(generateReminderElements());
+  //var inputTimeValue = document.querySelector('input[type="time"]');
+  Date.prototype.addMinutes = function(m) {
+   this.setTime(this.getTime() + (m*60*1000));
+   return this;
+  }
+
+  //alert(new Date().addMinutes(30));
+  let currentTimePlusHalfHour = new Date().addMinutes(30);
+  //let currentTimePlusHalfHour = new Date();
+  let currenthours = currentTimePlusHalfHour.getHours();
+  let formattedhours = currenthours < 10 ? `0${currenthours}` : currenthours;
+  let currentminutes = currentTimePlusHalfHour.getMinutes();
+  let formattedminutes = currentminutes < 10 ? `0${currentminutes}` : currentminutes;
+  let formattedcurrenttime = `${formattedhours}:${formattedminutes}`
+  $('.alerttimeinput').val(formattedcurrenttime);
+}
+
+
+
+function generateReminderElements(){
+  return `
+    <div class='alertscontainer'>
+      <div class='remindertitle'>Reminder Options</div>
+      <img class='alertbellimg' src="img/alertbell.svg" alt="alertbell" />
+      <div class='alerttimecontainer'>
+        <div class='arrivebycontainer'>
+          <span class='arrivebytext'>Arrive By</span>
+          <input class='alerttimeinput' type="time" name="alerttime" value="" />
+        </div>
+        <div class='alertbeforecontainer'>
+          <span class='alertbeforetext'>Alert in Advance</span>
+          <input class='alertbeforehourinput' type="number" name="beforetime" min='0' max='12' placeholder='0'/>
+          <span class='alerthourstext'>Hrs</span>
+          <input class='alertbeforeminutesinput' type="number" name="beforetime" min='0' max='59' placeholder='30'/>
+          <span class='alerthourstext'>Mins</span>
+        </div>
+      </div>
+    </div>
+  `
+}
+
+
 var map, infoWindow;
 var markers = [];
+var yourlocationmarker;
+let enterkeycode = 13;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -36,13 +113,17 @@ function initMap() {
   var originAutocomplete = new google.maps.places.Autocomplete(originInput);
   var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
 
+  $('#listofsuggestions').append(originAutocomplete);
+  $('#listofsuggestions').append(destinationAutocomplete);
+
   var control = document.getElementById('leftpanelcontainer');
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(control);
   infoWindow = new google.maps.InfoWindow;
 
-  startendlistener(directionsService, directionsRenderer);
+  startendlistener(directionsService, directionsRenderer, originAutocomplete, destinationAutocomplete);
 
   renderYourLocationButton();
+  arrowkeyboardcontrolHandler();
 }
 
 
@@ -82,11 +163,24 @@ function renderYourLocationButton(){
           scaledSize: new google.maps.Size(25, 25),
         };
 
-        var userMarker = new google.maps.Marker({
-          position: pos,
-          map: map,
-          icon: icon
-        });
+        if (!yourlocationmarker) {
+          var userMarker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            icon: icon
+          });
+          yourlocationmarker = userMarker;
+        }
+        else {
+          yourlocationmarker.setMap(null);
+          var userMarker = new google.maps.Marker({
+            position: pos,
+            map: map,
+            icon: icon
+          });
+          yourlocationmarker = userMarker;
+        }
+
 
         map.setCenter(latlng);
         map.setZoom(16);
@@ -109,22 +203,34 @@ function renderYourLocationButton(){
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
 }
 
-function startendlistener(directionsService, directionsRenderer){
-  document.getElementById('start').addEventListener('change', onChangeHandler);
-  document.getElementById('end').addEventListener('change', onChangeHandler);
+function startendlistener(directionsService, directionsRenderer, originAutocomplete, destinationAutocomplete){
+
+  $(document).on('keyup', 'input', function(e){
+    if (e.type == 'keyup' && $('.pac-container').length) {
+      $('#listofsuggestions').append($('.pac-container'));
+    }
+    if (e.keyCode ==  enterkeycode && e.target.type !== 'submit') {
+        console.log(e.type);
+        onChangeHandler();
+        console.log('event enter and focusout');
+    }
+  })
 
   function onChangeHandler() {
+
     resetMap();
     let start = document.getElementById('start').value
     let end = document.getElementById('end').value
     if (start && end) {
       directionsRenderer.setMap(map);
-      calculateAndDisplayRoute(directionsService, directionsRenderer);
+      let maxDuration = renderDirectionServiceAndDuration(directionsService, directionsRenderer);
+      //console.log(maxDuration);
+      $('.alertmenucontainer').append(renderReminderElements());
+      enableBrowserNotification();
     }
     else {
       directionsRenderer.setMap(null);
       directionsRenderer.set('directions', null);
-      console.log('only one address is typed');
       if (start == '') {
         $('#start').focus();
         if (end) {
@@ -136,6 +242,9 @@ function startendlistener(directionsService, directionsRenderer){
         if (start) {
           displayOneLocation(start, directionsRenderer);
         }
+      }
+      else {
+        $('#start').focus();
       }
     }
   };
@@ -195,7 +304,6 @@ function displayOneLocation(loc, directionsRenderer){
       alert('Geocode was not successful for the following reason: ' + status);
     }
   })
-  console.log(loc);
 }
 
 
@@ -207,20 +315,37 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.open(map);
 }
 
-function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+function renderDirectionServiceAndDuration(directionsService, directionsRenderer) {
+
+  let routedurationArray = [];
+  var deferred = $.Deferred();
+  let maxDuration;
 
   var start = document.getElementById('start').value;
   var end = document.getElementById('end').value;
   directionsService.route({
     origin: start,
     destination: end,
-    travelMode: 'DRIVING'
+    travelMode: 'DRIVING',
+    provideRouteAlternatives: true
   }, function(response, status) {
     if (status === 'OK') {
       directionsRenderer.setDirections(response);
+      for (let i = 0; i < response.routes.length; i++){
+        for (let j = 0; j < response.routes[i].legs.length; j++){
+          routedurationArray.push(response.routes[i].legs[j].duration.value);
+          console.log(response.routes[i].legs[j].duration.value);
+          console.log('that was the duration value');
+        }
+      }
+      maxDuration = Math.max(...routedurationArray);
+      deferred.resolve(maxDuration);
     }
     else {
-      window.alert('Directions request failed due to ' + status);
+      deferred.reject(window.alert('Directions request failed due to ' + status));
     }
   });
+  console.log(deferred.promise());
+  console.log('this is the promise');
+  return deferred.promise();
 }
