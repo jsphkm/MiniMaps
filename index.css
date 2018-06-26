@@ -27,7 +27,6 @@ ul, li {
 .leftpanelcontainer {
   position: relative;
   z-index: 1;
-  height: 100%;
   float: left;
   width: 408px;
   background-color: white;
@@ -105,8 +104,9 @@ ul, li {
   position: absolute;
   bottom: 0;
   border-bottom: 1px solid #fff;
-  width: 264px;
+  /* width: 264px; */
   opacity: 0.6;
+  width: 100%;
 }
 
 .addressinput::placeholder {
@@ -295,25 +295,36 @@ ul, li {
 }
 
 .alertscontainer {
-  background-color: #2c5dd2;
-  padding: 20px;
+  /* background-color: #2c5dd2; */
+  background-color: #0d65d8;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 100%;
+
 }
 
-.alertbellimg {
-  width: 11px;
-  opacity: 0.8;
+.remindercontainer {
+  background-color: #1f33c1;
+  height: 100%;
+  display: flex;
 }
 
-.alerttimeinput {
-  color: white;
-  opacity: 0.8;
-  font-size: 14px;
+.arrivebycontainer {
+  display: flex;
+  margin-left: 23px;
+  height: 20px;
+  position: relative;
 }
 
-.alertbeforeinput {
-  color: white;
-  opacity: 0.8;
-  font-size: 14px;
+.arrivebytext {
+  align-self: center;
+  margin-right: 15px;
+}
+
+.alertdescription {
+  margin-top: 20px;
 }
 
 .remindertitle {
@@ -323,14 +334,72 @@ ul, li {
   opacity: 0.8;
 }
 
-.arrivebytext, .alertbeforetext {
+.arrivebytext, .alertbeforetext, .alerttimeinput, .alertbeforeinput, .alertdescription {
   color: white;
+  font-size: 13px;
   opacity: 0.8;
-  font-size: 14px;
 }
 
 .alertbeforeinput::-webkit-datetime-edit-ampm-field {
   display: none;
 }
 
-/* .alertbeforehourinput, .alertbeforeminutesinput:: */
+.alertbeforetext {
+  align-self: center;
+  margin-right: 15px;
+}
+
+.alerthourstext {
+  font-size: 13px;
+  color: white;
+  align-self: center;
+  opacity: 0.8;
+}
+
+.alertbeforeinput {
+  color: white;
+  opacity: 0.8;
+  font-size: 13px;
+  align-self: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input::-ms-clear,
+input::-ms-reveal {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.alertheadercontainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.turnon {
+  color: white;
+  opacity: 0.8;
+  font-size: 13px;
+  margin-right: 23px;
+}
+
+.alertdescription{
+  margin-left: 23px;
+  margin-right: 23px;
+}
+
+.arrivalinputcontainer {
+  position: relative;
+  margin-right: 50px;
+}
+
+.alertinputcontainer {
+  position: relative;
+}

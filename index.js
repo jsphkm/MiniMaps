@@ -46,23 +46,61 @@ function enableBrowserNotification(){
     Notification.requestPermission();
 }
 
-function renderReminderElements(){
-  $('.alertmenucontainer').append(generateReminderElements());
-  //var inputTimeValue = document.querySelector('input[type="time"]');
+function renderReminderElements(maxDurationTime){
+  $('.remindercontainer').append(generateReminderElements());
+  $('.alerthourstext').on('click', event => {
+    $('.alertbeforeinput').focus();
+  });
   Date.prototype.addMinutes = function(m) {
-   this.setTime(this.getTime() + (m*60*1000));
-   return this;
+    this.setTime(this.getTime() + (m*60*1000));
+    return this;
   }
 
-  //alert(new Date().addMinutes(30));
-  let currentTimePlusHalfHour = new Date().addMinutes(30);
-  //let currentTimePlusHalfHour = new Date();
+  Date.prototype.addDuration = function(m) {
+    console.log(m);
+    this.setTime(this.getTime() + (m));
+    return this;
+  }
+
+  let currentTime = new Date();
+  let currentTimePlusHalfHour = currentTime.addMinutes(30);
+  console.log(`currentTimePlusHalfHour: ${currentTimePlusHalfHour}`);
+  let arrivalTime = currentTimePlusHalfHour.addDuration(maxDurationTime);
+  console.log(`arrivalTime: ${arrivalTime}`);
   let currenthours = currentTimePlusHalfHour.getHours();
   let formattedhours = currenthours < 10 ? `0${currenthours}` : currenthours;
   let currentminutes = currentTimePlusHalfHour.getMinutes();
   let formattedminutes = currentminutes < 10 ? `0${currentminutes}` : currentminutes;
   let formattedcurrenttime = `${formattedhours}:${formattedminutes}`
   $('.alerttimeinput').val(formattedcurrenttime);
+
+  let preptime = $('.alertbeforeinput').val();
+  $('.minutetext').text(preptime.toString());
+  // $('.leavetime').text(currentTimePlusHalfHour);
+  const departTime = new Date(currentTime - (maxDurationTime));
+  let departhours = departTime.getHours();
+  let formatteddeparthours = departhours < 10 ? `0${departhours}` : departhours;
+  let ampm = departhours >= 12 ? 'PM' : 'AM';
+  let departminutes = departTime.getMinutes();
+  let formatteddepartminutes = departminutes < 10 ? `0${departminutes}` : departminutes;
+  let formatteddeparttime = `${formatteddeparthours}:${formatteddepartminutes} ${ampm}`
+  $('.leavetime').text(formatteddeparttime);
+
+  $('.timeinput').on('input', event => {
+    let arrivaltime = $('.alerttimeinput').val();
+    let preptime = $('.alertbeforeinput').val();
+    $('.minutetext').text(preptime.toString());
+    currentTime.setHours(`${arrivaltime[0]}${arrivaltime[1]}`);
+    currentTime.setMinutes(`${arrivaltime[3]}${arrivaltime[4]}`);
+    const departTime = new Date(currentTime - (maxDurationTime));
+    let departhours = departTime.getHours();
+    let formatteddeparthours = departhours < 10 ? `0${departhours}` : departhours;
+    let ampm = departhours >= 12 ? 'PM' : 'AM';
+    let departminutes = departTime.getMinutes();
+    let formatteddepartminutes = departminutes < 10 ? `0${departminutes}` : departminutes;
+    let formatteddeparttime = `${formatteddeparthours}:${formatteddepartminutes} ${ampm}`
+    $('.leavetime').text(formatteddeparttime);
+  })
 }
 
 
@@ -70,19 +108,37 @@ function renderReminderElements(){
 function generateReminderElements(){
   return `
     <div class='alertscontainer'>
-      <div class='remindertitle'>Reminder Options</div>
-      <img class='alertbellimg' src="img/alertbell.svg" alt="alertbell" />
+      <div class='alertheadercontainer'>
+        <div class='remindertitle'>Reminder Options</div>
+        <div class='turnon'>
+          TURN ON
+        </div>
+      </div>
       <div class='alerttimecontainer'>
         <div class='arrivebycontainer'>
-          <span class='arrivebytext'>Arrive By</span>
-          <input class='alerttimeinput' type="time" name="alerttime" value="" />
+          <span class='arrivebytext'>Arrival</span>
+          <div class='arrivalinputcontainer'>
+            <input class='alerttimeinput timeinput' type="time" name="alerttime" value="" />
+            <span class='inputunderline'></span>
+          </div>
+          <span class='alertbeforetext'>Alert</span>
+          <div class='alertinputcontainer'>
+            <input class='alertbeforeinput timeinput' type="number" name="beforetime" min='0' max='720' placeholder='MM' value="30"/>
+            <span class='alerthourstext'>Mins</span>
+            <span class='inputunderline'></span>
+          </div>
         </div>
-        <div class='alertbeforecontainer'>
-          <span class='alertbeforetext'>Alert in Advance</span>
-          <input class='alertbeforehourinput' type="number" name="beforetime" min='0' max='12' placeholder='0'/>
-          <span class='alerthourstext'>Hrs</span>
-          <input class='alertbeforeminutesinput' type="number" name="beforetime" min='0' max='59' placeholder='30'/>
-          <span class='alerthourstext'>Mins</span>
+        <div class='alertdescription'>
+          <span class='youwillreceive'>
+            You will receive a
+          </span>
+          <span class='minutetext'>
+          </span>
+          <span class='reminderat'>
+            mins reminder to leave by
+          </span>
+          <span class='leavetime'>
+          </span>
         </div>
       </div>
     </div>
@@ -205,14 +261,13 @@ function renderYourLocationButton(){
 
 function startendlistener(directionsService, directionsRenderer, originAutocomplete, destinationAutocomplete){
 
-  $(document).on('keyup', 'input', function(e){
+  $(document).on('keyup', '.addressinput', function(e){
     if (e.type == 'keyup' && $('.pac-container').length) {
       $('#listofsuggestions').append($('.pac-container'));
     }
     if (e.keyCode ==  enterkeycode && e.target.type !== 'submit') {
         console.log(e.type);
         onChangeHandler();
-        console.log('event enter and focusout');
     }
   })
 
@@ -223,10 +278,14 @@ function startendlistener(directionsService, directionsRenderer, originAutocompl
     let end = document.getElementById('end').value
     if (start && end) {
       directionsRenderer.setMap(map);
-      let maxDuration = renderDirectionServiceAndDuration(directionsService, directionsRenderer);
-      //console.log(maxDuration);
-      $('.alertmenucontainer').append(renderReminderElements());
-      enableBrowserNotification();
+      let foo = renderDirectionServiceAndDuration(directionsService, directionsRenderer);
+      foo.then( maxDurationTime => {
+        $('.remindercontainer').html("");
+        //$('.remindercontainer').append(renderReminderElements());
+        renderReminderElements(maxDurationTime);
+        enableBrowserNotification();
+      })
+
     }
     else {
       directionsRenderer.setMap(null);
@@ -333,19 +392,30 @@ function renderDirectionServiceAndDuration(directionsService, directionsRenderer
       directionsRenderer.setDirections(response);
       for (let i = 0; i < response.routes.length; i++){
         for (let j = 0; j < response.routes[i].legs.length; j++){
-          routedurationArray.push(response.routes[i].legs[j].duration.value);
-          console.log(response.routes[i].legs[j].duration.value);
-          console.log('that was the duration value');
+          //routedurationArray.push(response.routes[i].legs[j].duration.value);
+          let splitduration = response.routes[i].legs[j].duration.text.split(' ');
+          let days = splitduration[splitduration.findIndex(a => a === 'days' || a === 'day') - 1];
+          let hours = splitduration[splitduration.findIndex(a => a === 'hours' || a === 'hour') - 1];
+          let mins = splitduration[splitduration.findIndex(a => a === 'mins' || a === 'min') - 1];
+
+          let converteddays;
+          let convertedhours;
+          let convertedmins;
+          days ? converteddays = days*24*60*60*1000 : converteddays = 0;
+          hours ? convertedhours = hours*60*60*1000 : convertedhours = 0;
+          mins ? convertedmins = mins*60*1000 : convertedmins = 0;
+          let routeduration = converteddays + convertedhours + convertedmins;
+          routedurationArray.push(routeduration);
         }
       }
+      console.log(routedurationArray);
       maxDuration = Math.max(...routedurationArray);
       deferred.resolve(maxDuration);
     }
     else {
-      deferred.reject(window.alert('Directions request failed due to ' + status));
+      window.alert('Directions request failed due to ' + status);
+      deferred.reject(0);
     }
   });
-  console.log(deferred.promise());
-  console.log('this is the promise');
   return deferred.promise();
 }
