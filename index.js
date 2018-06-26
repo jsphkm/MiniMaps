@@ -169,6 +169,9 @@ function initMap() {
   var originAutocomplete = new google.maps.places.Autocomplete(originInput);
   var destinationAutocomplete = new google.maps.places.Autocomplete(destinationInput);
 
+  var trafficLayer = new google.maps.TrafficLayer();
+  trafficLayer.setMap(map);
+
   $('#listofsuggestions').append(originAutocomplete);
   $('#listofsuggestions').append(destinationAutocomplete);
 
@@ -382,11 +385,17 @@ function renderDirectionServiceAndDuration(directionsService, directionsRenderer
 
   var start = document.getElementById('start').value;
   var end = document.getElementById('end').value;
+
+  var trafficModel = map.get("traffic");
+
   directionsService.route({
     origin: start,
     destination: end,
     travelMode: 'DRIVING',
-    provideRouteAlternatives: true
+    provideRouteAlternatives: true,
+    drivingOptions: {
+      departureTime: new Date()
+    }
   }, function(response, status) {
     if (status === 'OK') {
       directionsRenderer.setDirections(response);
