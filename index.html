@@ -1,64 +1,48 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en" dir="ltr">
   <head>
-    <title>Google Maps API</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600" rel="stylesheet" />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css" />
+    <link rel="stylesheet" href="index.css">
+    <title>Commute Timer</title>
   </head>
   <body>
-    <aside class='leftpanelcontainer'>
-      <div id='leftpanel'>
-        <div id='bluecontainer'>
-          <div id='travelmodecontainer' role='radiogroup'>
-            <div class='driveclass'>
-              <button class='transmodebutton selectedmode' name='modebuttons' role='radio' aria-label='Driving' aria-checked='true'>
-                <img class='driveimage' src='img/driveicon.svg' alt='Driving'/>
-                <span class='tooltiptextmode'>Driving</span>
-              </button>
-            </div>
-            <div class='walkclass'>
-              <button class='transmodebutton' name='modebuttons' role='radio' aria-label='Walking' aria-checked='false'>
-                <img src='img/walkicon.svg' alt='Walking'/>
-                <span class='tooltiptextmode'>Walking</span>
-              </button>
-            </div>
+    <div class='bodycontainer'>
+      <header>
+        <form class='topsearchform' name='topsearchform' action='' method='post'>
+          <div class='topsearchcontainer'>
+            <label class='topsearchlabel' for="topsearchinput"><img class='searchiconimg' src='img/searchicon.svg' alt='searchicon'/></label>
+            <input id='topsearchinput' type="text" name="" placeholder='Go where?' value=""/>
           </div>
-          <div class='entrycontainer'>
-            <form class='entryform' action="" method="post">
-              <div class='startcontainer'>
-                <input id='start' class='addressinput' name='startinput' type='text' placeholder='Choose starting point...'/>
-                <span class='inputunderline'></span>
-              </div>
-              <div class='endcontainer'>
-                <input id='end' class='addressinput' name='endinput' type='text' placeholder='Choose destination...'/>
-                <span class='inputunderline'></span>
-              </div>
-            </form>
-            <div class='reversecontainer'>
-              <button class='reversebutton' aria-label='Reverse starting point and destination'>
-                <img class='reverseimg' src='img/reverseicon.svg' />
-                <span class='tooltiptextreverse'>Reverse starting point and destination</span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class='remindercontainer'></div>
+        </form>
         <div id='listofsuggestions'></div>
-        <div class='sideflapcontainer'>
-          <button class='sideflapbutton'>
-            <img src='img/sidearrow.svg' class='sidearrow' alt='sidearrow'/>
-            <span class='tooltipsideflap'>Collapse side panel</span>
+      </header>
+      <main>
+        <section class='mapsection'>
+          <div id='map'></div>
+        </section>
+        <div class='geolocationContainer'>
+          <button class='geolocationButton' title='Your Location'>
+            <img class='geolocationImg' src='img/bluecrosshair.svg'/>
           </button>
         </div>
-        <div id='listofdirections'></div>
-      </div>
-    </aside>
-
-    <main id="map"></main>
-    <script defer type="text/javascript" src="index.js"></script>
+        <aside class='infoaside'>
+          <div class='infocontainer'>
+            <div class='shortbusinessinfoContainer'></div>
+            <div class='routesInfoContainer'>
+              <div class='routestatuscontainer'></div>
+            </div>
+            <div class='locationbuttonsContainer'></div>
+            <div class='startinginfocontainer'></div>
+            <div id='directions'></div>
+          </div>
+        </aside>
+      </main>
+    </div>
+    <script type='text/javascript' src='elements.js'></script>
+    <script defer type='text/javascript' src='index.js'></script>
   </body>
 </html>
