@@ -1,1 +1,1 @@
-# Stressmeter
+# Minimaps

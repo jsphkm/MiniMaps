@@ -20,8 +20,14 @@ html, body {
   width: 100%;
 }
 
-a {
+ul, li, a {
   text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
 }
 
 #map {
@@ -36,29 +42,67 @@ input, button {
 
 ::placeholder {
   color: white;
-  opacity: 0.7;
+  opacity: 0.8;
   font-weight:400;
 }
 
 .topsearchform {
+  height: 100%;
   padding: 5pt;
   display: flex;
-  justify-content: center;
+  align-content: center;
+  flex-direction: column;
 }
 
-#topsearchinput {
+#searchfrominput, #searchtoinput {
+  display: flex;
   align-self: center;
-  background-color: rgba(43, 43, 43, 0.7);
-  border-radius: 35px;
   color: white;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 11pt;
-  padding: 17px 25px 17px 40px;
-  min-width: 225px;
+  padding: 0px 45px 0px 40px;
+  width: 100%;
+  height: 40px;
 }
 
-#topsearchinput:focus, #topsearchinput:hover {
-  background-color: rgba(43, 43, 43, 1);
+.locationchoicecontainer {
+  width: 14px;
+  position: absolute;
+  display: flex;
+  right: 22px;
+  top: 15px;
+}
+
+#searchfrominput:focus,
+#searchtoinput:focus, {
+  opacity: 1;
+}
+
+#searchfrominput:focus, #searchtoinput:focus, .submitbutton:focus, .geolocationButton:focus {
+  cursor: pointer;
+  border: 2px solid #4285F4;
+  opacity: 1;
+}
+
+.submitbutton img {
+  width: 15px;
+}
+
+.submitbutton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 44px;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.submitbutton:hover, .submitbutton:focus {
+  cursor: pointer;
+  opacity: 1;
 }
 
 .topsearchlabel {
@@ -71,23 +115,27 @@ input, button {
 
 .searchiconimg {
   align-self: center;
-  height: 13px;
   width: 13px;
 }
 
 .topsearchcontainer {
+  height: 46px;
+  display: flex;
   position: relative;
   padding: 0;
   margin: 0;
 }
 
 header {
-  position: absolute;
+  background-color: #2B2B2B;
   display: flex;
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  z-index: 1;
+}
+
+.hideElement {
+  display: none;
 }
 
 main {
@@ -100,12 +148,13 @@ main {
 .bodycontainer {
   display: flex;
   height: 100%;
+  flex-direction: column;
 }
 
 .mapsection {
   /* height: 100%;
   width: 100%; */
-  height: 65%;
+  height: 56%;
   width: 100%;
   /* flex: 1 1 auto; */
   flex: 1 1 100%;
@@ -113,22 +162,17 @@ main {
 
 .infoaside{
   width: 100%;
-  /* height: 350.3px; */
-  /* flex: 0 1 35%; */
   flex: 1 1 auto;
+  background-color: #2B2B2B;
 }
 
 .infocontainer {
-  background-color: #2B2B2B;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 590px;
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.locationbuttonsContainer {
-  display: flex;
-  justify-content: center;
-  border-top: 1px solid rgba(255,255, 255, 0.3);
 }
 
 .geolocationContainer {
@@ -138,8 +182,8 @@ main {
 .geolocationButton {
   position: absolute;
   right: 9pt;
-  bottom: 15pt;
-  background-color: #fff;
+  bottom: 14pt;
+  background-color: rgba(43, 43, 43, 1);
   border: none;
   outline: none;
   width: 27pt;
@@ -151,6 +195,11 @@ main {
   padding: 0px;
   display: flex;
   justify-content: center;
+  opacity: 0.7;
+}
+
+.geolocationButton:hover, .geolocationButton:focus {
+  opacity: 1;
 }
 
 .geolocationImg {
@@ -163,9 +212,10 @@ main {
 
 .pac-container {
   background-color: #2B2B2B;
-  border-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
   padding: 15px;
-  margin-top: 5px;
+  border: none !important;
 }
 
 .pac-item span {
@@ -190,73 +240,50 @@ main {
   height: 50px;
 }
 
-.pac-icon {
-  display: none;
+.pac-icon-marker {
+  background-image: url('img/smallmonopin.svg') !important;
+  background-repeat: no-repeat;
 }
 
 .pac-container::after {
   margin-top: 20px;
 }
 
-#directions div:nth-child(2){
-  display: none;
-}
-
 .redpinimg {
   width: 15px;
 }
 
-.routestatuscontainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-top: 1px solid gray;
-}
-
-.routeinfoContainer {
-  margin: 12px;
+.routescontainer {
   display: flex;
   flex-direction: row;
-  background-color: black;
-  border-radius: 10px;
-  padding: 7px 10px 7px 10px;
+  /* padding: 9px; */
+}
+
+.routeinfocontainer {
+  opacity: 1;
+  margin: 0px 19px;
 }
 
 .routeinfo {
   display: flex;
   flex-direction: column;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .legsummaryDiv {
+  color: white;
+  opacity: 0.8;
   font-weight: 300;
-  font-size: 15px;
+  font-size: 12px;
   display: flex;
   align-items: center;
-  margin-bottom: 3px;
-}
-
-.fromlocationDiv {
-  font-weight: 400;
-  color: #4285F4;
-  font-size: 12px;
-}
-
-.fromlocationDiv span {
-  font-weight: 500;
-}
-
-.fromlocationContainer {
-  margin-top: 4px;
 }
 
 .trafficdurationDiv {
-  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 2px;
+  font-weight: 300;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 10px 0 10px;
   color: white;
 }
 
@@ -279,14 +306,11 @@ main {
   font-weight: 300;
   font-size: 11px;
   display: flex;
-  /* background-color: black; */
   border-radius: 10px;
   padding: 5px;
   margin: 12px 12px 7px 12px;
   flex-direction: row;
 }
-
-
 
 .startinglocationImg, .endinglocationImg {
   width: 12px;
@@ -313,7 +337,6 @@ main {
   color: #5b5b5b;
   font-size: 11px;
   height: 11px;
-  width: 55px;
 }
 
 #ratingstarsTop {
@@ -349,17 +372,18 @@ main {
 }
 
 .destinationNameContainer {
-  margin: 15px 0px 0px 15px;
-  margin-bottom: 15px;
+  margin: 19px 0px 19px 19px;
 }
 
 .destinationName {
-  margin-bottom: 4px;
+  margin-bottom: 5px;
+  font-size: 18px;
 }
 
 .ratingsDisplayContainer {
   display: flex;
   flex-direction: row;
+  margin-bottom: 5px;
 }
 
 .ratingsnumDisplay {
@@ -380,4 +404,95 @@ main {
 
 .operatingstatusDisplay {
   font-weight: 300;
+}
+
+.destinationaddress {
+  font-size: 12px;
+  opacity: 0.8;
+  font-weight: 300;
+}
+
+.goodduration {
+  color: #00FF88;
+}
+
+.badduration {
+  color: #E41517;
+}
+
+.qadiv {
+  width: 20px;
+}
+
+.quickaccesscontainer {
+  display: flex;
+  padding: 14px 9px 14px 9px;
+  justify-content: space-evenly;
+  align-content: center;
+}
+
+.qadiv {
+  display: flex;
+  justify-content: center;
+  margin: 4px;
+  width: 18px;
+  height: 25px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.qadesc {
+  font-size: 11px;
+  font-weight: 300;
+  text-align: center;
+  color: white;
+}
+
+.qaimg {
+  height: 23px;
+}
+
+.quickphonecontainer {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.quickphonecontainer, .openinghourscontainer, .sharecontainer, .websitecontainer {
+  width: 68px;
+  height: 68px;
+  opacity: 0.8;
+}
+
+.quickphonecontainer:hover, .openinghourscontainer:hover, .sharecontainer:hover, .websitecontainer:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.quickphonecontainer:focus, .openinghourscontainer:focus, .sharecontainer:focus, .websitecontainer:focus {
+  border: 2px solid #4285F4;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.hourslistcontainer {
+  padding: 0px 14px 14px 14px;
+  display: inline-flex;
+}
+
+.hourslistul {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hourslistul li {
+  padding: 5px 0px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.sharelink {
+  position: absolute;
+  display: none;
 }

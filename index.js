@@ -1,5 +1,5 @@
 function loadGoogleJS(){
-  $('#topsearchinput').focus();
+  $('#searchtoinput').focus();
   if (document.querySelectorAll('#map').length > 0)
   {
     if (document.querySelector('html').lang)
@@ -8,7 +8,7 @@ function loadGoogleJS(){
       lang = 'en';
     var js_file = document.createElement('script');
     js_file.type = 'text/javascript';
-    js_file.src = 'https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyAln4UsUGOrVtX4MGg4e0mGXY2GK-helLE&libraries=places&language=' + lang;
+    js_file.src = 'https://maps.googleapis.com/maps/api/js?&callback=initMap&key=AIzaSyAln4UsUGOrVtX4MGg4e0mGXY2GK-helLE&libraries=places&language=' + lang;
     document.getElementsByTagName('head')[0].appendChild(js_file);
   }
 }
@@ -66,10 +66,12 @@ function initMap() {
   directionsService = new google.maps.DirectionsService;
   directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
   //directionsRenderer.setPanel(document.getElementById('directions'));
-  directionsRenderer.setMap(map);
+  //directionsRenderer.setMap(map);
 
-  var topsearchInput = document.getElementById('topsearchinput');
-  var topsearchAutocomplete = new google.maps.places.Autocomplete(topsearchInput);
+  var searchfromInput = document.getElementById('searchfrominput');
+  var searchtoInput = document.getElementById('searchtoinput');
+  var searchfromAutocomplete = new google.maps.places.Autocomplete(searchfromInput);
+  var searchtoAutocomplete = new google.maps.places.Autocomplete(searchtoInput);
   //$('#listofsuggestions').append($('.pac-container'));
 
   var trafficLayer = new google.maps.TrafficLayer();
@@ -105,25 +107,17 @@ function fetchYourGeolocation(){
       }
       map.setCenter(latlng);
       map.setZoom(16);
-      //$('#startinputid').val(`${geoPos.lat}, ${geoPos.lng}`);
-      //$('#endinputid').focus();
+      $('#searchfrominput').val(`${geoPos.lat}, ${geoPos.lng}`);
+      $('#searchtoinput').focus();
       if (end) {
         onEnterHandler();
       }
     },
     function() {
       console.log('Fetching denied');
-      handleLocationError(false);
+      // TODO: Need to handle the geolocation error message
     });
   }
-}
-
-function handleLocationError(browserHasGeolocation) {
-  // infoWindow.setContent(browserHasGeolocation ?
-  // 'Error: The Geolocation service failed.' :
-  // 'Error: Your browser doesn\'t support geolocation.');
-  // infoWindow.open(map);
-  // TODO: Need to handle the geolocation error message
 }
 
 function bluecrosshairEventHandler(){
@@ -141,33 +135,32 @@ function bluecrosshairEventHandler(){
 function topsearchinputEventHandler(){
   $(document).on('keyup submit', '.topsearchform', function(e){
     e.preventDefault();
-    if (e.keyCode ==  enterkeycode){
-      inputlocationTypeHandler();
-      onEnterHandler();
-    }
-    if (end && !(end == document.getElementById('topsearchinput').value)){
-      directionsRenderer.setMap(null);
-      resetMap();
+    if (e.type == 'keyup'){
+      if (end && !(end == document.getElementById('searchtoinput').value)){
+        directionsRenderer.setMap(null);
+        resetMap();
+        console.log('map has been reset');
+      }
+      if (e.keyCode == enterkeycode) {
+        console.log('enter detected')
+        if (!(document.getElementById('searchfrominput').value)) {
+          $('#searchfrominput').focus();
+        }
+        if (document.getElementById('searchfrominput').value && !(document.getElementById('searchtoinput').value)) {
+          $('#searchtoinput').focus();
+        }
+        end = document.getElementById('searchtoinput').value;
+        start = document.getElementById('searchfrominput').value;
+        onEnterHandler();
+      }
     }
   });
-}
-
-function inputlocationTypeHandler(){
-  if ($('#topsearchinput').attr('placeholder') == 'Go where?'){
-    end = document.getElementById('topsearchinput').value;
-  }
-  if ($('#topsearchinput').attr('placeholder') == 'From where?'){
-    start = document.getElementById('topsearchinput').value;
-    $('#topsearchinput').attr('placeholder', 'Go where?');
-  }
 }
 
 function onEnterHandler() {
   console.log('This start value is being passed at enterhandler');
   console.log(start);
-  if (!(start)) {
-    $('#topsearchinput').attr('placeholder', 'From where?');
-  }
+
   if (start && end) {
     resolveHandler(start, end);
     //tryTextSearch(end);
@@ -175,7 +168,6 @@ function onEnterHandler() {
   else {
     directionsRenderer.setMap(null);
     directionsRenderer.set('directions', null);
-    $('#topsearchinput').focus();
   }
 }
 
@@ -213,16 +205,9 @@ function checkEndingPlaceData(){
 
 
 function processDirectionAndPlacesData(){
-  let fastestRoute = directionserviceData.routes[0];
-  let routeinfoElements = generateRouteInfoElements(fastestRoute);
-  let startingElements = generateStartingElements();
-  let fromlocationElements = generateFromlocationElements();
-  let endingElements = generateEndingElements()
   let ratingStarsElements = generateEndingDetailedElements()
   $('.shortbusinessinfoContainer').html('');
   $('.shortbusinessinfoContainer').html(ratingStarsElements);
-  $('.routestatuscontainer').html('');
-  $('.locationbuttonsContainer').html(startingElements);
   if ($('.ratingstars').length) {
     let ratingratio = `${(endingPlaceData.rating / 5)*100}%`;
     document.getElementById('ratingstarsTop').style.width = ratingratio;
@@ -234,12 +219,84 @@ function processDirectionAndPlacesData(){
   if (statustext == 'Closed'){
     $('.operatingstatusDisplay').css('color', '#e80001');
   }
-  $('.routestatuscontainer').html(routeinfoElements);
-  $('.routeinfo').append(fromlocationElements);
-  $('.locationbuttonsContainer').append(endingElements);
-
-  currentlocationClickHandler()
+  if (!(/[a-z]/i.test(document.getElementById('searchfrominput').value))){
+      document.getElementById('searchfrominput').value = `${startingPlaceData.name}`;
+  }
+  if ($('.hourslistcontainer').length){
+    $('.hourslistcontainer').remove()
+  }
+  renderRouteElements();
+  renderQuickAccessElements();
+  quickaccessHandler();
+  shareHandler();
+  directionsRenderer.setMap(map);
 }
+
+function shareHandler(){
+  $('.sharecontainer').on('click', function(){
+    document.execCommand('copy');
+  })
+
+
+    // try {
+    //   let success = document.execCommand(endingPlaceData.url);
+    //   let msg = success ? 'copy success' : 'copy failed';
+    // } catch(err) {
+    //   console.log('Copy Error: try again');
+    // }
+}
+
+
+function quickaccessHandler(){
+  $('.openinghourscontainer').on('click', function(){
+    console.log('hours clicked');
+    if ($('.hourslistcontainer').length){
+      console.log('it thinks is in here');
+      $('.hourslistcontainer').remove();
+    }
+    else{
+      renderInfoListElements();
+      console.log('it is supposed to add here');
+    }
+  });
+}
+
+function renderInfoListElements(){
+  let hours = generateHoursElements();
+  console.log(hours);
+  $('.infocontainer').append(hours);
+}
+
+function renderQuickAccessElements(){
+  if ($('.quickaccesscontainer')){
+    $('.quickaccesscontainer').remove();
+  }
+  $('.infocontainer').append(generateQuickaccessElements());
+
+  $('.sharecontainer').on('click', function(){
+    if (navigator.share !== undefined) {
+      navigator.share({
+        title: endingPlaceData.name,
+        url: endingPlaceData.url
+      })
+    }
+  })
+}
+
+function renderRouteElements(){
+  //$('.routescontainer').html('');
+  // for (let i = 0; i < directionserviceData.routes.length; i++){
+  //   $('.routescontainer').append(generateRouteInfoElements(directionserviceData.routes[i]));
+  // }
+  if ($('.routescontainer')){
+    $('.routescontainer').remove();
+  }
+  let routesdiv = $('<div/>').attr('class', 'routescontainer');
+  let appendedroutesdiv = routesdiv.append(generateRouteInfoElements(directionserviceData.routes[0]));
+  $('.infocontainer').append(appendedroutesdiv);
+}
+
+
 
 // function tryTextSearch(loc){
 //   let service = new google.maps.places.PlacesService(map);
@@ -255,16 +312,6 @@ function processDirectionAndPlacesData(){
 //     }
 //   }
 // }
-
-function currentlocationClickHandler(){
-  $('.startinglocation').on('click', function(e){
-    e.preventDefault();
-    console.log('a tag successfully stopped!');
-    $('#topsearchinput').attr('placeholder', 'From where?');
-    $('#topsearchinput').val('');
-    $('#topsearchinput').focus();
-  })
-}
 
 function resetMap() {
   for (var i = 0; i < markers.length; i++) {
@@ -286,6 +333,7 @@ function runDirectionServiceAPI(start, end) {
     }
   }, function(response, status) {
     if (status === 'OK') {
+      resetMap();
       directionsRenderer.setMap(map);
       directionsRenderer.setDirections(response);
       let leg = response.routes[0].legs[0];
@@ -355,6 +403,20 @@ function loadmaster(){
   fetchYourGeolocation();
   bluecrosshairEventHandler();
   topsearchinputEventHandler();
+  //renderBottomNav();
 }
 
 $(loadmaster);
+
+
+//  TODO:
+//  1. High Priority
+//    - Need to add navbar (connect the from link to editing home)
+//    - Make it responsive
+//    - Make it accessible
+//    - Complete readme
+//    - Option to save geolocation as starting loc again
+//  2. Mid Priority
+//    - Add zoom in & out buttons
+//    - Add alarm feature
+//  3.

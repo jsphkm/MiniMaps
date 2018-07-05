@@ -7,15 +7,21 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600" rel="stylesheet" />
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css" />
     <link rel="stylesheet" href="index.css">
-    <title>Commute Timer</title>
+    <title>Mini Maps</title>
   </head>
   <body>
     <div class='bodycontainer'>
       <header>
-        <form class='topsearchform' name='topsearchform' action='' method='post'>
+        <form class='topsearchform' action='' method='post'>
           <div class='topsearchcontainer'>
-            <label class='topsearchlabel' for="topsearchinput"><img class='searchiconimg' src='img/searchicon.svg' alt='searchicon'/></label>
-            <input id='topsearchinput' type="text" name="" placeholder='Go where?' value=""/>
+            <label class='topsearchlabel' for="searchfrominput"><img class='searchiconimg' src='img/departdot.svg' alt='from icon'/></label>
+            <input id='searchfrominput' type="text" name="searchinputs" placeholder='From where?' value="" tabindex='1'/>
+            <button class='submitbutton fromsubmitbutton' type='submit' tabindex='2'><img class='searchicon' src='img/searchicon.svg' alt='searchicon'/></button>
+          </div>
+          <div class='topsearchcontainer'>
+            <label class='topsearchlabel' for="searchtoinput"><img class='searchiconimg' src='img/smallredpin.svg' alt='to icon'/></label>
+            <input id='searchtoinput' type="text" name="searchinputs" placeholder='Go where?' value="" tabindex='3'/>
+            <button class='submitbutton tosubmitbutton' type='submit' tabindex='4'><img class='searchicon' src='img/searchicon.svg' alt='searchicon'/></button>
           </div>
         </form>
         <div id='listofsuggestions'></div>
@@ -25,19 +31,13 @@
           <div id='map'></div>
         </section>
         <div class='geolocationContainer'>
-          <button class='geolocationButton' title='Your Location'>
-            <img class='geolocationImg' src='img/bluecrosshair.svg'/>
+          <button class='geolocationButton' title='Your Location' tabindex='5'>
+            <img class='geolocationImg' src='img/whitecrosshair.svg'/>
           </button>
         </div>
         <aside class='infoaside'>
           <div class='infocontainer'>
             <div class='shortbusinessinfoContainer'></div>
-            <div class='routesInfoContainer'>
-              <div class='routestatuscontainer'></div>
-            </div>
-            <div class='locationbuttonsContainer'></div>
-            <div class='startinginfocontainer'></div>
-            <div id='directions'></div>
           </div>
         </aside>
       </main>
