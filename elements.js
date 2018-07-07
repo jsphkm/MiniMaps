@@ -13,10 +13,12 @@ function generateRouteInfoElements(oneRoute) {
   if (msTrafficDuration >= 0 && msTrafficDuration <= msAverageDuration + 60000){
     durationAnalysis = 'The traffic is normal. You should leave now';
     colorduration = `<div class='trafficdurationDiv goodduration'>${trafficDuration}</div>`;
+    colordescription = `<div class='legsummaryDiv goodsummary'>Fastest via ${legSummary}</div>`;
   }
   else {
     durationAnalysis = 'Ouch!  We can alert you when it cools down';
     colorduration = `<div class='trafficdurationDiv badduration'>${trafficDuration}</div>`;
+    colordescription = `<div class='legsummaryDiv badsummary'>Fastest via ${legSummary}</div>`;
   }
 
   console.log(durationAnalysis);
@@ -26,7 +28,7 @@ function generateRouteInfoElements(oneRoute) {
     <div class='routeinfocontainer'>
       <div class='routeinfo'>
         ${colorduration}
-        <div class='legsummaryDiv'>via ${legSummary}</div>
+        ${colordescription}
       </div>
     </div>
   `;
@@ -41,7 +43,7 @@ function generateEndingDetailedElements(){
   let reviewsNumElements = '';
   let operatingstatusElements = '';
 
-  if (endingPlaceData.rating){
+  if ("rating" in endingPlaceData){
     ratingnum = endingPlaceData.rating;
     ratingStars = generateRatingStars();
     ratingNumStarsElements = `
@@ -92,9 +94,9 @@ function generateQuickaccessElements(){
   let website = '';
   if (endingPlaceData.international_phone_number){
     phonenumber = `
-      <a href='tel:${phonenumber}' class='quickphonecontainer' role='button' tabindex='7'>
+      <a href='tel:${endingPlaceData.international_phone_number}' class='quickphonecontainer' role='button' tabindex='7'>
         <div class='qadiv quickphone'>
-          <img class='qaimg' src='img/whitephone.svg' />
+          <img class='qaimg' src='img/bluephone.svg' />
         </div>
         <div class='qadesc'>CALL</div>
       </a>`
@@ -103,7 +105,7 @@ function generateQuickaccessElements(){
     openinghours = `
       <button class='openinghourscontainer' tabindex='6'>
         <div class='qadiv openinghours'>
-          <img class='qaimg' src='img/whitehours.svg' />
+          <img class='qaimg' src='img/bluehours.svg' />
         </div>
         <div class='qadesc'>HOURS</div>
       </button>`
@@ -111,7 +113,7 @@ function generateQuickaccessElements(){
   let share = `
     <button class='sharecontainer' tabindex='9'>
       <div class='qadiv share'>
-        <img class='qaimg' src='img/whiteshare.svg' />
+        <img class='qaimg' src='img/blueshare.svg' />
       </div>
       <div class='qadesc'>SHARE</div>
       <div class='sharelink'>${endingPlaceData.url}</div>
@@ -122,7 +124,7 @@ function generateQuickaccessElements(){
     website = `
       <button onclick='window.open(endingPlaceData.website, "_blank")' class='websitecontainer' tabindex='8'>
         <div class='qadiv website'>
-          <img class='qaimg' src='img/whitewebsite.svg' />
+          <img class='qaimg' src='img/bluewebsite.svg' />
         </div>
         <div class='qadesc'>WEBSITE</div>
       </button>`
@@ -130,6 +132,13 @@ function generateQuickaccessElements(){
   return `
     <div class='quickaccesscontainer'>
       ${openinghours}${phonenumber}${website}${share}
+    </div>
+    <div class='infolist'>
+      <ul>
+        <li>${endingPlaceData.formatted_phone_number}</li>
+        <li>${endingPlaceData.website}</li>
+        <li>${endingPlaceData.url}</li>
+      </ul>
     </div>
   `;
 }
@@ -147,4 +156,14 @@ function generateHoursElements(){
   }
   routesdiv.append(routesul);
   return routesdiv;
+}
+
+function generateasideElements(){
+  return `
+    <aside class='infoaside'>
+      <div class='infocontainer'>
+        <div class='shortbusinessinfoContainer'></div>
+      </div>
+    </aside>
+  `
 }

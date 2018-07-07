@@ -1,1 +1,1 @@
-# Minimaps
+# MiniMaps

@@ -1,4 +1,5 @@
 html {
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 *, *:before, *:after {
@@ -16,7 +17,7 @@ body * {
 }
 
 html, body {
-  height: 100%;
+  height: 100vh;
   width: 100%;
 }
 
@@ -63,6 +64,7 @@ input, button {
   padding: 0px 45px 0px 40px;
   width: 100%;
   height: 40px;
+  opacity: 0.8;
 }
 
 .locationchoicecontainer {
@@ -97,7 +99,7 @@ input, button {
   justify-content: center;
   width: 44px;
   height: 100%;
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 .submitbutton:hover, .submitbutton:focus {
@@ -127,7 +129,7 @@ input, button {
 }
 
 header {
-  background-color: #2B2B2B;
+  background-color: #0e1219;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -143,27 +145,31 @@ main {
   flex-direction: column;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .bodycontainer {
   display: flex;
-  height: 100%;
+  height: 100vh;
   flex-direction: column;
 }
 
 .mapsection {
-  /* height: 100%;
-  width: 100%; */
-  height: 56%;
+  position: relative;
   width: 100%;
-  /* flex: 1 1 auto; */
-  flex: 1 1 100%;
+  height: 100%;
+  float: right;
+  flex: 1 1 auto;
 }
 
 .infoaside{
+  position: relative;
+  height: 100%;
   width: 100%;
+  float: right;
+  background-color: #0e1219;
+  overflow: scroll;
   flex: 1 1 auto;
-  background-color: #2B2B2B;
 }
 
 .infocontainer {
@@ -203,19 +209,20 @@ main {
 }
 
 .geolocationImg {
-  width: 14pt;
-  height: 14pt;
+  width: 16pt;
+  height: 16pt;
   background-size: 180px 18px;
   background-position: 0px 0px;
   background-repeat: no-repeat;
 }
 
 .pac-container {
-  background-color: #2B2B2B;
+  background-color: #0e1219;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
   padding: 15px;
   border: none !important;
+  opacity: 0.9;
 }
 
 .pac-item span {
@@ -223,7 +230,6 @@ main {
   line-height: 50px;
   font-size: 13px;
   font-weight: 300;
-  opacity: 1;
 }
 
 .pac-matched {
@@ -231,7 +237,8 @@ main {
 }
 
 .pac-item:hover, .pac-item:focus, .pac-item-selected {
-  background-color: #4F4F4F;
+  background-color: #132035;
+  opacity: 1;
 }
 
 .pac-item {
@@ -270,17 +277,17 @@ main {
 }
 
 .legsummaryDiv {
-  color: white;
-  opacity: 0.8;
-  font-weight: 300;
-  font-size: 12px;
+  color: #00FF88;
+  opacity: 0.7;
+  font-weight: 400;
+  font-size: 13px;
   display: flex;
   align-items: center;
 }
 
 .trafficdurationDiv {
-  font-size: 16px;
-  margin-bottom: 2px;
+  font-size: 17px;
+  margin-bottom: 4px;
   font-weight: 300;
   display: flex;
   align-items: center;
@@ -372,12 +379,12 @@ main {
 }
 
 .destinationNameContainer {
-  margin: 19px 0px 19px 19px;
+  margin: 19px;
 }
 
 .destinationName {
   margin-bottom: 5px;
-  font-size: 18px;
+  font-size: 19px;
 }
 
 .ratingsDisplayContainer {
@@ -407,17 +414,29 @@ main {
 }
 
 .destinationaddress {
-  font-size: 12px;
-  opacity: 0.8;
+  font-size: 13px;
+  opacity: 1;
   font-weight: 300;
+  color: #4285F4;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.goodduration {
+.goodsummary {
   color: #00FF88;
 }
 
-.badduration {
+.goodduration {
+  color: #9df2ca;
+}
+
+.badsummary {
   color: #E41517;
+}
+
+.badduration {
+  color: #f29d9f;
 }
 
 .qadiv {
@@ -442,10 +461,11 @@ main {
 }
 
 .qadesc {
-  font-size: 11px;
-  font-weight: 300;
+  font-size: 12px;
+  font-weight: 400;
   text-align: center;
-  color: white;
+  color: #4285F4;
+  opacity: 0.8;
 }
 
 .qaimg {
@@ -495,4 +515,28 @@ main {
 .sharelink {
   position: absolute;
   display: none;
+}
+
+.infolist ul {
+  margin: 0px 10px 10px 10px;
+  padding: 5px;
+  background-color: #141c28;
+  border: 1px solid black;
+}
+
+.infolist ul li {
+  padding: 0px 26px;
+  font-size: 14px;
+  color: #4285F4;
+  opacity: 0.8;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 10px auto;
+}
+
+@media all and (orientation:landscape) {
+  main {
+    flex-direction: row-reverse;
+  }
 }

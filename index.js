@@ -206,6 +206,10 @@ function checkEndingPlaceData(){
 
 function processDirectionAndPlacesData(){
   let ratingStarsElements = generateEndingDetailedElements()
+  if ($('.infoaside').length) {
+    $('.infoaside').remove();
+  }
+  $('main').append(generateasideElements());
   $('.shortbusinessinfoContainer').html('');
   $('.shortbusinessinfoContainer').html(ratingStarsElements);
   if ($('.ratingstars').length) {
@@ -214,10 +218,10 @@ function processDirectionAndPlacesData(){
   }
   let statustext = $('.operatingstatusDisplay').text();
   if (statustext == 'Open'){
-    $('.operatingstatusDisplay').css('color', '#33ed0e');
+    $('.operatingstatusDisplay').css('color', '#00FF88');
   }
   if (statustext == 'Closed'){
-    $('.operatingstatusDisplay').css('color', '#e80001');
+    $('.operatingstatusDisplay').css('color', '#E41517');
   }
   if (!(/[a-z]/i.test(document.getElementById('searchfrominput').value))){
       document.getElementById('searchfrominput').value = `${startingPlaceData.name}`;
@@ -268,8 +272,11 @@ function renderInfoListElements(){
 }
 
 function renderQuickAccessElements(){
-  if ($('.quickaccesscontainer')){
+  if ($('.quickaccesscontainer').length){
     $('.quickaccesscontainer').remove();
+  }
+  if ($('.infolist').length){
+    $('.infolist').remove();
   }
   $('.infocontainer').append(generateQuickaccessElements());
 
