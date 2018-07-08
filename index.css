@@ -192,8 +192,8 @@ main {
   background-color: rgba(43, 43, 43, 1);
   border: none;
   outline: none;
-  width: 27pt;
-  height: 27pt;
+  width: 40pt;
+  height: 40pt;
   border-radius: 40%;
   box-shadow: 0 1px 4px rgba(0,0,0,0.3);
   cursor: pointer;
@@ -209,8 +209,8 @@ main {
 }
 
 .geolocationImg {
-  width: 16pt;
-  height: 16pt;
+  width: 19pt;
+  height: 19pt;
   background-size: 180px 18px;
   background-position: 0px 0px;
   background-repeat: no-repeat;
