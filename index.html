@@ -9,29 +9,29 @@
     <link rel="stylesheet" href="index.css">
     <title>Mini Maps</title>
   </head>
-  <body>
+  <body role='document'>
     <div class='bodycontainer'>
-      <header>
+      <header role='banner'>
         <form class='topsearchform' action='' method='post'>
           <div class='topsearchcontainer'>
-            <label class='topsearchlabel' for="searchfrominput"><img class='searchiconimg' src='img/departdot.svg' alt='from icon'/></label>
-            <input id='searchfrominput' type="text" name="searchinputs" placeholder='From where?' value="" tabindex='1'/>
-            <button class='submitbutton fromsubmitbutton' type='submit' tabindex='2'><img class='searchicon' src='img/searchicon.svg' alt='searchicon'/></button>
+            <label class='topsearchlabel' for="searchfrominput"><img role='img' class='searchiconimg' src='img/departdot.svg' alt='from icon'/></label>
+            <input role='textbox' id='searchfrominput' type="text" name="searchinputs" placeholder='From where?' value="" tabindex='1'/>
+            <button role='button' class='submitbutton fromsubmitbutton' type='submit' tabindex='2'><img class='searchicon' src='img/searchicon.svg' alt='searchicon'/></button>
           </div>
           <div class='topsearchcontainer'>
-            <label class='topsearchlabel' for="searchtoinput"><img class='searchiconimg' src='img/smallredpin.svg' alt='to icon'/></label>
-            <input id='searchtoinput' type="text" name="searchinputs" placeholder='Go where?' value="" tabindex='3'/>
-            <button class='submitbutton tosubmitbutton' type='submit' tabindex='4'><img class='searchicon' src='img/searchicon.svg' alt='searchicon'/></button>
+            <label class='topsearchlabel' for="searchtoinput"><img role='img' class='searchiconimg' src='img/smallredpin.svg' alt='dest icon'/></label>
+            <input role='textbox' id='searchtoinput' type="text" name="searchinputs" placeholder='Go where?' value="" tabindex='3'/>
+            <button role='button' class='submitbutton tosubmitbutton' type='submit' tabindex='4'><img class='searchicon' src='img/searchicon.svg' alt='searchicon'/></button>
           </div>
         </form>
         <div id='listofsuggestions'></div>
       </header>
-      <main>
+      <main role='main'>
         <section class='mapsection'>
           <div id='map'></div>
           <div class='geolocationContainer'>
-            <button class='geolocationButton' title='Your Location' tabindex='5'>
-              <img class='geolocationImg' src='img/bluecrosshair.svg'/>
+            <button role='button' class='geolocationButton' title='Your Location' tabindex='5'>
+              <img role='img' class='geolocationImg' src='img/bluecrosshair.svg' alt='bluecrosshair icon'/>
             </button>
           </div>
         </section>

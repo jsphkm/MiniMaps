@@ -94,26 +94,26 @@ function generateQuickaccessElements(){
   let website = '';
   if (endingPlaceData.international_phone_number){
     phonenumber = `
-      <a href='tel:${endingPlaceData.international_phone_number}' class='quickphonecontainer' role='button' tabindex='7'>
+      <a role='link' href='tel:${endingPlaceData.international_phone_number}' class='quickphonecontainer' role='button' tabindex='7'>
         <div class='qadiv quickphone'>
-          <img class='qaimg' src='img/bluephone.svg' />
+          <img role='img' class='qaimg' src='img/bluephone.svg' alt='bluephone icon'/>
         </div>
         <div class='qadesc'>CALL</div>
       </a>`
   }
   if (endingPlaceData.opening_hours){
     openinghours = `
-      <button class='openinghourscontainer' tabindex='6'>
+      <button role='button' class='openinghourscontainer' tabindex='6'>
         <div class='qadiv openinghours'>
-          <img class='qaimg' src='img/bluehours.svg' />
+          <img role='img' class='qaimg' src='img/bluehours.svg' alt='clock icon'/>
         </div>
         <div class='qadesc'>HOURS</div>
       </button>`
   }
   let share = `
-    <button class='sharecontainer' tabindex='9'>
+    <button role='button' class='sharecontainer' tabindex='9'>
       <div class='qadiv share'>
-        <img class='qaimg' src='img/blueshare.svg' />
+        <img role='img' class='qaimg' src='img/blueshare.svg' alt='share icon'/>
       </div>
       <div class='qadesc'>SHARE</div>
       <div class='sharelink'>${endingPlaceData.url}</div>
@@ -122,9 +122,9 @@ function generateQuickaccessElements(){
     `
   if (endingPlaceData.website){
     website = `
-      <button onclick='window.open(endingPlaceData.website, "_blank")' class='websitecontainer' tabindex='8'>
+      <button role='button' onclick='window.open(endingPlaceData.website, "_blank")' class='websitecontainer' tabindex='8'>
         <div class='qadiv website'>
-          <img class='qaimg' src='img/bluewebsite.svg' />
+          <img role='img' class='qaimg' src='img/bluewebsite.svg' alt='globe icon' />
         </div>
         <div class='qadesc'>WEBSITE</div>
       </button>`
@@ -134,10 +134,10 @@ function generateQuickaccessElements(){
       ${openinghours}${phonenumber}${website}${share}
     </div>
     <div class='infolist'>
-      <ul>
-        <li>${endingPlaceData.formatted_phone_number}</li>
-        <li>${endingPlaceData.website}</li>
-        <li>${endingPlaceData.url}</li>
+      <ul role='list'>
+        <li role='listitem'>${endingPlaceData.formatted_phone_number}</li>
+        <li role='listitem'>${endingPlaceData.website}</li>
+        <li role='listitem'>${endingPlaceData.url}</li>
       </ul>
     </div>
   `;
@@ -160,7 +160,7 @@ function generateHoursElements(){
 
 function generateasideElements(){
   return `
-    <aside class='infoaside'>
+    <aside role='complementary' class='infoaside'>
       <div class='infocontainer'>
         <div class='shortbusinessinfoContainer'></div>
       </div>
