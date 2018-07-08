@@ -36,6 +36,8 @@ let startingIdKeeper;
 let endingIdKeeper;
 let currentstartingId;
 let currentendingId
+let searchfromAutocomplete;
+let searchtoAutocomplete;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -70,12 +72,13 @@ function initMap() {
 
   var searchfromInput = document.getElementById('searchfrominput');
   var searchtoInput = document.getElementById('searchtoinput');
-  var searchfromAutocomplete = new google.maps.places.Autocomplete(searchfromInput);
-  var searchtoAutocomplete = new google.maps.places.Autocomplete(searchtoInput);
+  searchfromAutocomplete = new google.maps.places.Autocomplete(searchfromInput);
+  searchtoAutocomplete = new google.maps.places.Autocomplete(searchtoInput);
   //$('#listofsuggestions').append($('.pac-container'));
 
   var trafficLayer = new google.maps.TrafficLayer();
   trafficLayer.setMap(map);
+  topsearchinputEventHandler();
 }
 
 function fetchYourGeolocation(){
@@ -133,28 +136,44 @@ function bluecrosshairEventHandler(){
 }
 
 function topsearchinputEventHandler(){
-  $(document).on('keyup submit', '.topsearchform', function(e){
-    e.preventDefault();
+  $(document).on('keyup keypress', '.topsearchform', function(e){
+    if (e.which == 13) {
+        e.preventDefault();
+    }
     if (e.type == 'keyup'){
       if (end && !(end == document.getElementById('searchtoinput').value)){
         directionsRenderer.setMap(null);
         resetMap();
         console.log('map has been reset');
       }
-      if (e.keyCode == enterkeycode) {
-        console.log('enter detected')
-        if (!(document.getElementById('searchfrominput').value)) {
-          $('#searchfrominput').focus();
-        }
-        if (document.getElementById('searchfrominput').value && !(document.getElementById('searchtoinput').value)) {
-          $('#searchtoinput').focus();
-        }
-        end = document.getElementById('searchtoinput').value;
-        start = document.getElementById('searchfrominput').value;
-        onEnterHandler();
-      }
     }
   });
+
+  google.maps.event.addListener(searchfromAutocomplete, 'place_changed', function() {
+      var data = $("#topsearchform").serialize();
+      console.log(data);
+      handleinputvalues();
+      return false;
+  });
+
+  google.maps.event.addListener(searchtoAutocomplete, 'place_changed', function() {
+    let blah = document.getElementById('searchtoinput').value;
+    console.log(blah);
+    handleinputvalues();
+    return false;
+  });
+}
+
+function handleinputvalues(){
+  if (!(document.getElementById('searchfrominput').value)) {
+    $('#searchfrominput').focus();
+  }
+  if (document.getElementById('searchfrominput').value && !(document.getElementById('searchtoinput').value)) {
+    $('#searchtoinput').focus();
+  }
+  end = document.getElementById('searchtoinput').value;
+  start = document.getElementById('searchfrominput').value;
+  onEnterHandler();
 }
 
 function onEnterHandler() {
@@ -203,7 +222,6 @@ function checkEndingPlaceData(){
   }
 }
 
-
 function processDirectionAndPlacesData(){
   let ratingStarsElements = generateEndingDetailedElements()
   if ($('.infoaside').length) {
@@ -224,7 +242,12 @@ function processDirectionAndPlacesData(){
     $('.operatingstatusDisplay').css('color', '#E41517');
   }
   if (!(/[a-z]/i.test(document.getElementById('searchfrominput').value))){
-      document.getElementById('searchfrominput').value = `${startingPlaceData.name}`;
+    let startingname = '';
+    if (!(startingPlaceData.formatted_address.includes(startingPlaceData.name))){
+      startingname = `${startingPlaceData.name}, `;
+    }
+    document.getElementById('searchfrominput').value = `${startingname}${startingPlaceData.formatted_address}`;
+    console.log(startingPlaceData.formatted_address);
   }
   if ($('.hourslistcontainer').length){
     $('.hourslistcontainer').remove()
@@ -240,7 +263,7 @@ function shareHandler(){
   $('.sharecontainer').on('click', function(){
     document.execCommand('copy');
   })
-
+  // TODO: Try copying the link to the clipboard
 
     // try {
     //   let success = document.execCommand(endingPlaceData.url);
@@ -409,7 +432,6 @@ function loadmaster(){
   loadGoogleJS();
   fetchYourGeolocation();
   bluecrosshairEventHandler();
-  topsearchinputEventHandler();
   //renderBottomNav();
 }
 
