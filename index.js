@@ -17,6 +17,7 @@ var map;
 var markers = [];
 var yourlocationmarker;
 let enterkeycode = 13;
+let escapekeycode = 27;
 let downarrowkeycode = 40;
 //let customstartingPos;
 let geoPos;
@@ -38,6 +39,7 @@ let currentstartingId;
 let currentendingId
 let searchfromAutocomplete;
 let searchtoAutocomplete;
+let inputbuffer;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -67,14 +69,14 @@ function initMap() {
 
   directionsService = new google.maps.DirectionsService;
   directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
-  //directionsRenderer.setPanel(document.getElementById('directions'));
-  //directionsRenderer.setMap(map);
+  directionsRenderer.setPanel(document.getElementById('directions'));
+  directionsRenderer.setMap(map);
 
   var searchfromInput = document.getElementById('searchfrominput');
   var searchtoInput = document.getElementById('searchtoinput');
   searchfromAutocomplete = new google.maps.places.Autocomplete(searchfromInput);
   searchtoAutocomplete = new google.maps.places.Autocomplete(searchtoInput);
-  //$('#listofsuggestions').append($('.pac-container'));
+  // $('#autocomplete').append($('.pac-container'));
 
   var trafficLayer = new google.maps.TrafficLayer();
   trafficLayer.setMap(map);
@@ -117,8 +119,7 @@ function fetchYourGeolocation(){
       }
     },
     function() {
-      console.log('Fetching denied');
-      // TODO: Need to handle the geolocation error message
+      toggleInputDisplay()
     });
   }
 }
@@ -136,9 +137,22 @@ function bluecrosshairEventHandler(){
 }
 
 function topsearchinputEventHandler(){
-  $(document).on('keyup keypress', '.topsearchform', function(e){
-    if (e.which == 13) {
-        e.preventDefault();
+  $( ".topsearchcontainer input" ).focus(function() {
+    saveinputBuffer();
+  });
+
+  $(document).on('keyup keypress submit', '.topsearchform', function(e){
+    if (e.which == enterkeycode || e.type == 'submit') {
+      e.preventDefault();
+      if ($('#searchfrominput').val() == '') {
+        document.getElementById('searchfrominput').focus();
+      }
+      if ($('#searchfrominput').val() !== '' && $('#searchtoinput').val() == '') {
+        document.getElementById('searchtoinput').focus();
+      }
+    }
+    if (e.which == escapekeycode) {
+      document.activeElement.value = inputbuffer;
     }
     if (e.type == 'keyup'){
       if (end && !(end == document.getElementById('searchtoinput').value)) {
@@ -153,15 +167,20 @@ function topsearchinputEventHandler(){
       var data = $("#topsearchform").serialize();
       console.log(data);
       handleinputvalues();
-      return false;
   });
 
   google.maps.event.addListener(searchtoAutocomplete, 'place_changed', function() {
     let blah = document.getElementById('searchtoinput').value;
     console.log(blah);
     handleinputvalues();
-    return false;
   });
+}
+
+function saveinputBuffer(){
+  if (document.activeElement.value) {
+    inputbuffer = document.activeElement.value;
+    console.log(inputbuffer);
+  };
 }
 
 function handleinputvalues(){
@@ -257,12 +276,11 @@ function processDirectionAndPlacesData(){
   quickaccessHandler();
   shareHandler();
   directionsRenderer.setMap(map);
+  saveinputBuffer();
+  toggleView();
 }
 
 function shareHandler(){
-  $('.sharecontainer').on('click', function(){
-    document.execCommand('copy');
-  })
   // TODO: Try copying the link to the clipboard
 
     // try {
@@ -276,15 +294,13 @@ function shareHandler(){
 
 function quickaccessHandler(){
   $('.openinghourscontainer').on('click', function(){
-    console.log('hours clicked');
     if ($('.hourslistcontainer').length){
-      console.log('it thinks is in here');
       $('.hourslistcontainer').remove();
     }
     else{
       renderInfoListElements();
-      console.log('it is supposed to add here');
     }
+    hoursDisplay();
   });
 }
 
@@ -427,12 +443,47 @@ function convertMS(splitduration){
   return sum;
 }
 
+function toggleView(){
+  $('.shortbusinessinfoContainer, .routescontainer').on('click', function(){
+    $('.mapsection').toggleClass('hideElement');
+    //$('header').toggleClass('hideElement');
+    if ($('.arrowimg').attr('src') == 'img/downarrow.svg') {
+      $('.arrowimg').attr('src', 'img/flatarrow.svg');
+    }
+    else {
+      $('.arrowimg').attr('src', 'img/downarrow.svg');
+    }
+  });
+}
+
+function toggleInputDisplay(){
+  $('.topsearchform div:first-child').toggleClass('hideElement');
+  if ($('.expandarrowimg').attr('src') == 'img/expandarrow.svg') {
+    $('.expandarrowimg').attr('src', 'img/collapsearrow.svg');
+  }
+  else {
+    $('.expandarrowimg').attr('src', 'img/expandarrow.svg');
+  }
+}
+
+function hoursDisplay(){
+  $('.mapsection').toggleClass('hideElement');
+  if ($('.arrowimg').attr('src') == 'img/downarrow.svg') {
+    $('.arrowimg').attr('src', 'img/flatarrow.svg');
+  }
+  else {
+    $('.arrowimg').attr('src', 'img/downarrow.svg');
+  }
+}
+
 
 function loadmaster(){
   loadGoogleJS();
   fetchYourGeolocation();
   bluecrosshairEventHandler();
-  //renderBottomNav();
+  $('.expandarrow').click(function(){
+    toggleInputDisplay();
+  });
 }
 
 $(loadmaster);

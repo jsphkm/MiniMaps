@@ -47,27 +47,20 @@ input, button {
   font-weight:400;
 }
 
-.topsearchform {
-  height: 100%;
-  padding: 3pt;
-  /* display: flex;
-  align-content: center;
-  flex-direction: column; */
-}
-
 #searchfrominput, #searchtoinput {
-  display: flex;
-  align-self: center;
+  /* display: flex;
+  align-self: center; */
   color: white;
   font-weight: 400;
-  font-size: 13pt;
-  padding: 0px 45px 0px 40px;
+  font-size: 12pt;
+  padding: 0px 45px 0px 35px;
   width: 100%;
   height: 100%;
   opacity: 0.5;
   background-color: #141c28;
   border-radius: 3px;
-  border: 1px solid black;
+  border: 2px solid black;
+  margin-left: 30px;
 }
 
 .locationchoicecontainer {
@@ -117,6 +110,7 @@ input, button {
   display: flex;
   align-self: center;
   z-index: 1;
+  margin-left: 30px;
 }
 
 .searchiconimg {
@@ -134,10 +128,8 @@ input, button {
 
 header {
   background-color: #0e1219;
-  /* display: flex;
-  justify-content: center;
-  flex-direction: column; */
   width: 100%;
+  position: relative;
 }
 
 .hideElement {
@@ -161,7 +153,7 @@ main {
 .mapsection {
   position: relative;
   width: 100%;
-  height: 30vh;
+  height: 40vh;
   float: right;
   flex: 1 1 auto;
 }
@@ -224,18 +216,20 @@ main {
   border-bottom-left-radius: 15px;
   padding: 15px;
   border: none !important;
-  opacity: 0.9;
+  opacity: 1;
 }
 
-.pac-item span {
+.pac-item > span:nth-child(-n+3) {
   color: white;
-  line-height: 47px;
+  /* line-height: 30px; */
   font-size: 16px;
   font-weight: 300;
+  float: left;
+  clear: left;
 }
 
 .pac-matched {
-  font-weight: 500 !important;
+  font-weight: 400 !important;
 }
 
 .pac-item:hover, .pac-item:focus, .pac-item-selected {
@@ -246,17 +240,21 @@ main {
 .pac-item {
   border-color: white !important;
   border: none;
-  height: 50px;
+  height: 60px;
 }
 
-.pac-icon-marker {
-  background-image: url('img/smallmonopin.svg') !important;
-  background-repeat: no-repeat;
+.pac-icon {
+  display: none;
 }
 
-.pac-container::after {
+.pac-item > span:last-of-type {
+  opacity: 0.8;
+  line-height: 16px !important;
+}
+
+/* .pac-container::after {
   margin-top: 20px;
-}
+} */
 
 .redpinimg {
   width: 15px;
@@ -284,19 +282,15 @@ main {
 
 .legsummaryDiv {
   color: #00FF88;
-  opacity: 0.7;
-  font-weight: 400;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
+  opacity: 1;
+  font-weight: 300;
+  font-size: 14px;
 }
 
 .trafficdurationDiv {
   font-size: 20px;
   margin-bottom: 4px;
   font-weight: 300;
-  display: flex;
-  align-items: center;
   color: white;
 }
 
@@ -376,11 +370,10 @@ main {
 
 .ratingsnumDisplay, .ratingsstarsDisplay, .reviewsnumDisplay, .operatingstatusDisplay {
   font-size: 12px;
-  font-weight: 300;
 }
 
 .destinationNameContainer {
-  padding: 19px;
+  padding: 2px 19px 19px 19px;
 }
 
 .destinationName {
@@ -410,11 +403,12 @@ main {
 }
 
 .operatingstatusDisplay {
-  font-weight: 300;
+  font-weight: 400;
+  font-size: 13px;
 }
 
 .destinationaddress {
-  width: 210px;
+  width: 250px;
   font-size: 14px;
   opacity: 1;
   font-weight: 300;
@@ -473,8 +467,8 @@ main {
 }
 
 .quickphonecontainer, .openinghourscontainer, .sharecontainer, .websitecontainer {
-  width: 68px;
-  height: 68px;
+  width: 76px;
+  height: 76px;
   opacity: 0.8;
 }
 
@@ -483,7 +477,7 @@ main {
   cursor: pointer;
 }
 
-.quickphonecontainer:focus, .openinghourscontainer:focus, .sharecontainer:focus, .websitecontainer:focus {
+.quickphonecontainer:focus, .openinghourscontainer:focus, .sharecontainer:focus, .websitecontainer:focus, .expandarrow:focus {
   border: 2px solid #4285F4;
   opacity: 1;
   cursor: pointer;
@@ -495,14 +489,14 @@ main {
 }
 
 .hourslistul {
-  margin-left: auto;
-  margin-right: auto;
+  text-align: center;
 }
 
 .hourslistul li {
   padding: 5px 0px;
   font-size: 14px;
   opacity: 0.8;
+  display: inline-block;
 }
 
 .sharelink {
@@ -510,25 +504,36 @@ main {
   display: none;
 }
 
-.infolist {
-  display: none;
+.arrowcontainer {
+  text-align: center;
 }
 
-.infolist ul {
-  margin: 0px 10px 10px 10px;
+.arrowicon {
+  opacity: 0.4;
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+  margin-top: 5px;
+}
+
+.arrowimg {
+  width: 22px;
+  vertical-align: middle;
+}
+
+.expandarrow {
+  position: absolute;
+  bottom: 5px;
+  left: 2px;
+  height: 50px;
+  width: 32px;
   background-color: #141c28;
-  border: 1px solid black;
+  border-radius: 5px;
+  border: 2px solid black;
 }
 
-.infolist ul li {
-  padding: 0px 26px;
-  font-size: 14px;
-  color: #4285F4;
-  opacity: 0.8;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  margin: 10px auto;
+.expandarrowimg {
+  width: 15px;
 }
 
 @media all and (orientation:landscape) {

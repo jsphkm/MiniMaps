@@ -13,30 +13,29 @@
     <div class='bodycontainer'>
       <header role='banner'>
         <form id='topsearchform' class='topsearchform' action='' method='post'>
-          <div class='topsearchcontainer'>
+          <div class='topsearchcontainer hideElement'>
             <label class='topsearchlabel' for="searchfrominput"><img role='img' class='searchiconimg' src='img/departdot.svg' alt='from icon'/></label>
             <input role='textbox' id='searchfrominput' type="text" name="searchinputs" placeholder='From where?' value="" tabindex='1'/>
             <button role='button' class='submitbutton fromsubmitbutton' type='submit' tabindex='2'><img class='searchicon' src='img/searchicon.svg' alt='searchicon'/></button>
           </div>
           <div class='topsearchcontainer'>
             <label class='topsearchlabel' for="searchtoinput"><img role='img' class='searchiconimg' src='img/smallredpin.svg' alt='dest icon'/></label>
-            <input role='textbox' id='searchtoinput' type="text" name="searchinputs" placeholder='Go where?' value="" tabindex='3'/>
-            <button role='button' class='submitbutton tosubmitbutton' type='submit' tabindex='4'><img class='searchicon' src='img/searchicon.svg' alt='searchicon'/></button>
+            <input role='textbox' id='searchtoinput' type="text" name="searchinputs" placeholder='Go where?' value="" tabindex='4'/>
+            <button role='button' class='submitbutton tosubmitbutton' type='submit' tabindex='5'><img class='searchicon' src='img/searchicon.svg' alt='searchicon'/></button>
           </div>
         </form>
-        <div id='listofsuggestions'></div>
+        <button role='button' class='expandarrow' tabindex='3'><img role='img' class='expandarrowimg' src='img/expandarrow.svg' alt='expandarrow' /></button>
+        <div id='autocomplete'></div>
       </header>
       <main role='main'>
         <section class='mapsection'>
           <div id='map'></div>
           <div class='geolocationContainer'>
-            <button role='button' class='geolocationButton' title='Your Location' tabindex='5'>
+            <button role='button' class='geolocationButton' title='Your Location' tabindex='6'>
               <img role='img' class='geolocationImg' src='img/bluecrosshair.svg' alt='bluecrosshair icon'/>
             </button>
           </div>
         </section>
-
-
       </main>
     </div>
     <script type='text/javascript' src='elements.js'></script>

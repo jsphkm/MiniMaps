@@ -31,6 +31,7 @@ function generateRouteInfoElements(oneRoute) {
         ${colordescription}
       </div>
     </div>
+    <div id='directions'></div>
   `;
 }
 
@@ -43,7 +44,8 @@ function generateEndingDetailedElements(){
   let reviewsNumElements = '';
   let operatingstatusElements = '';
 
-  if ("rating" in endingPlaceData){
+  //if ("rating" in endingPlaceData){
+  if (endingPlaceData.hasOwnProperty('rating')){
     ratingnum = endingPlaceData.rating;
     ratingStars = generateRatingStars();
     ratingNumStarsElements = `
@@ -92,6 +94,7 @@ function generateQuickaccessElements(){
   let phonenumber = '';
   let openinghours = '';
   let website = '';
+
   if (endingPlaceData.international_phone_number){
     phonenumber = `
       <a role='link' href='tel:${endingPlaceData.international_phone_number}' class='quickphonecontainer' role='button' tabindex='7'>
@@ -110,16 +113,6 @@ function generateQuickaccessElements(){
         <div class='qadesc'>HOURS</div>
       </button>`
   }
-  let share = `
-    <button role='button' class='sharecontainer' tabindex='9'>
-      <div class='qadiv share'>
-        <img role='img' class='qaimg' src='img/blueshare.svg' alt='share icon'/>
-      </div>
-      <div class='qadesc'>SHARE</div>
-      <div class='sharelink'>${endingPlaceData.url}</div>
-    </button>
-
-    `
   if (endingPlaceData.website){
     website = `
       <button role='button' onclick='window.open(endingPlaceData.website, "_blank")' class='websitecontainer' tabindex='8'>
@@ -128,17 +121,11 @@ function generateQuickaccessElements(){
         </div>
         <div class='qadesc'>WEBSITE</div>
       </button>`
+    infowebsite = endingPlaceData.website;
   }
   return `
     <div class='quickaccesscontainer'>
-      ${openinghours}${phonenumber}${website}${share}
-    </div>
-    <div class='infolist'>
-      <ul role='list'>
-        <li role='listitem'>${endingPlaceData.formatted_phone_number}</li>
-        <li role='listitem'>${endingPlaceData.website}</li>
-        <li role='listitem'>${endingPlaceData.url}</li>
-      </ul>
+      ${openinghours}${phonenumber}${website}
     </div>
   `;
 }
@@ -161,6 +148,9 @@ function generateHoursElements(){
 function generateasideElements(){
   return `
     <aside role='complementary' class='infoaside'>
+      <div class='arrowcontainer'>
+        <a class='arrowicon'><img class='arrowimg' src='img/flatarrow.svg' alt='flat arrow icon'></a>
+      </div>
       <div class='infocontainer'>
         <div class='shortbusinessinfoContainer'></div>
       </div>
