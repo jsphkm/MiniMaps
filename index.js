@@ -141,7 +141,7 @@ function topsearchinputEventHandler(){
         e.preventDefault();
     }
     if (e.type == 'keyup'){
-      if (end && !(end == document.getElementById('searchtoinput').value)){
+      if (end && !(end == document.getElementById('searchtoinput').value)) {
         directionsRenderer.setMap(null);
         resetMap();
         console.log('map has been reset');

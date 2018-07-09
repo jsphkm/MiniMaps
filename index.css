@@ -63,7 +63,7 @@ input, button {
   font-size: 13pt;
   padding: 0px 45px 0px 40px;
   width: 100%;
-  height: 40px;
+  height: 100%;
   opacity: 0.8;
 }
 
@@ -109,14 +109,14 @@ input, button {
 .topsearchlabel {
   position: absolute;
   height: 100%;
-  padding-left: 15px;
+  padding-left: 11px;
   display: flex;
   align-self: center;
 }
 
 .searchiconimg {
   align-self: center;
-  width: 13px;
+  width: 16px;
 }
 
 .topsearchcontainer {
@@ -224,8 +224,8 @@ main {
 
 .pac-item span {
   color: white;
-  line-height: 50px;
-  font-size: 14px;
+  line-height: 47px;
+  font-size: 16px;
   font-weight: 300;
 }
 
@@ -283,7 +283,7 @@ main {
 }
 
 .trafficdurationDiv {
-  font-size: 17px;
+  font-size: 20px;
   margin-bottom: 4px;
   font-weight: 300;
   display: flex;
@@ -339,8 +339,8 @@ main {
   margin: 0 auto;
   padding: 0;
   color: #5b5b5b;
-  font-size: 11px;
-  height: 11px;
+  font-size: 12px;
+  height: 12px;
 }
 
 #ratingstarsTop {
@@ -370,18 +370,13 @@ main {
   font-weight: 300;
 }
 
-.ratingsDisplayContainer {
-  display: flex;
-  flex-direction: row;
-}
-
 .destinationNameContainer {
-  margin: 19px;
+  padding: 19px;
 }
 
 .destinationName {
   margin-bottom: 5px;
-  font-size: 19px;
+  font-size: 21px;
 }
 
 .ratingsDisplayContainer {
@@ -392,7 +387,6 @@ main {
 
 .ratingsnumDisplay {
   margin-right: 5px;
-  font-size: 11px;
 }
 
 .ratingsstarsDisplay {
@@ -412,7 +406,7 @@ main {
 
 .destinationaddress {
   width: 210px;
-  font-size: 13px;
+  font-size: 14px;
   opacity: 1;
   font-weight: 300;
   color: #4285F4;
@@ -437,10 +431,6 @@ main {
   color: #f29d9f;
 }
 
-.qadiv {
-  width: 20px;
-}
-
 .quickaccesscontainer {
   display: flex;
   padding: 14px 9px 14px 9px;
@@ -449,17 +439,13 @@ main {
 }
 
 .qadiv {
-  display: flex;
-  justify-content: center;
   margin: 4px;
-  width: 18px;
-  height: 25px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .qadesc {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   text-align: center;
   color: #4285F4;
@@ -467,7 +453,7 @@ main {
 }
 
 .qaimg {
-  height: 23px;
+  height: 25px;
 }
 
 .quickphonecontainer {
