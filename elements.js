@@ -18,19 +18,26 @@ function generateRouteInfoElements(oneRoute) {
   else {
     durationAnalysis = 'Ouch!  We can alert you when it cools down';
     colorduration = `<div class='trafficdurationDiv badduration'>${trafficDuration}</div>`;
-    colordescription = `<div class='legsummaryDiv badsummary'>Fastest via ${legSummary}</div>`;
+    colordescription = `<div class='legsummaryDiv badsummary'>via ${legSummary}</div>`;
   }
+
+  let routes = `
+    <div class='routesicon' tabindex='10'>
+      <img role='img' class='qaimg' src='img/bluecar.svg' alt='route icon' />
+    </div>`
 
   console.log(durationAnalysis);
   console.log(`Traffic: ${trafficDuration}`);
   console.log(`Average: ${averageDuration}`);
   return `
-    <div role='button' class='routeinfocontainer'>
+    <button role='button' class='routeinfocontainer'>
       <div class='routeinfo'>
         ${colorduration}
         ${colordescription}
       </div>
-    </div>
+      <div class='routebuttoncontainer'>${routes}</div>
+    </button>
+
   `;
 }
 
@@ -96,7 +103,7 @@ function generateQuickaccessElements(){
 
   if (endingPlaceData.international_phone_number){
     phonenumber = `
-      <a role='link' href='tel:${endingPlaceData.international_phone_number}' class='quickphonecontainer' role='button' tabindex='7'>
+      <a role='link' href='tel:${endingPlaceData.international_phone_number}' class='quickphonecontainer' role='button' tabindex='8'>
         <div class='qadiv quickphone'>
           <img role='img' class='qaimg' src='img/bluephone.svg' alt='bluephone icon'/>
         </div>
@@ -105,7 +112,7 @@ function generateQuickaccessElements(){
   }
   if (endingPlaceData.opening_hours){
     openinghours = `
-      <button role='button' class='openinghourscontainer' tabindex='6'>
+      <button role='button' class='openinghourscontainer' tabindex='7'>
         <div class='qadiv openinghours'>
           <img role='img' class='qaimg' src='img/bluehours.svg' alt='clock icon'/>
         </div>
@@ -114,7 +121,7 @@ function generateQuickaccessElements(){
   }
   if (endingPlaceData.website){
     website = `
-      <button role='button' onclick='window.open(endingPlaceData.website, "_blank")' class='websitecontainer' tabindex='8'>
+      <button role='button' onclick='window.open(endingPlaceData.website, "_blank")' class='websitecontainer' tabindex='9'>
         <div class='qadiv website'>
           <img role='img' class='qaimg' src='img/bluewebsite.svg' alt='globe icon' />
         </div>
@@ -122,17 +129,10 @@ function generateQuickaccessElements(){
       </button>`
     infowebsite = endingPlaceData.website;
   }
-  let routes = `
-    <button role='button' class='routesbutton' tabindex='7'>
-      <div class='qadiv routes'>
-        <img role='img' class='qaimg' src='img/bluecar.svg' alt='route icon' />
-      </div>
-      <div class='qadesc'>ROUTES</div>
-    </button>`
 
   return `
     <div class='quickaccesscontainer'>
-      ${openinghours}${phonenumber}${website}${routes}
+      ${openinghours}${phonenumber}${website}
     </div>
   `;
 }
@@ -155,9 +155,9 @@ function generateHoursElements(){
 function generateasideElements(){
   return `
     <aside role='complementary' class='infoaside'>
-      <div class='arrowcontainer'>
+      <button role='button' class='arrowcontainer'>
         <a class='arrowicon'><img class='arrowimg' src='img/flatarrow.svg' alt='flat arrow icon'></a>
-      </div>
+      </button>
       <div class='infocontainer'>
         <div class='shortbusinessinfoContainer'></div>
       </div>

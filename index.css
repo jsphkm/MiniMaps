@@ -60,7 +60,7 @@ input, button {
   background-color: #141c28;
   border-radius: 3px;
   border: 2px solid black;
-  margin-left: 35px;
+  margin-left: 2px;
 }
 
 .locationchoicecontainer {
@@ -110,7 +110,7 @@ input, button {
   display: flex;
   align-self: center;
   z-index: 1;
-  margin-left: 35px;
+  margin-left: 2px;
 }
 
 .searchiconimg {
@@ -127,7 +127,7 @@ input, button {
 }
 
 header {
-  background-color: #0e1219;
+  background-color: #1b2638;
   width: 100%;
   position: relative;
 }
@@ -256,18 +256,25 @@ main {
   width: 15px;
 }
 
-/* .routescontainer {
-  display: flex;
-  flex-direction: row;
-} */
+.routescontainer {
+  text-align: center;
+}
 
 .routeinfocontainer {
+  min-width: 220px;
   opacity: 1;
   margin: 0px 9px 9px 9px;
   background-color: #1b2638;
   padding: 9px;
   border-radius: 3px;
   border: 1px solid black;
+  position: relative;
+}
+
+.routebuttoncontainer {
+  position: absolute;
+  top: 18px;
+  right: 22px;
 }
 
 .routeinfo {
@@ -276,14 +283,20 @@ main {
 }
 
 .legsummaryDiv {
+  width: 200px;
   color: #00FF88;
   opacity: 1;
   font-weight: 400;
   font-size: 14px;
+  text-align: left;
+}
+
+.routesicon .qaimg {
+  height: 18px;
 }
 
 .trafficdurationDiv {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 4px;
   font-weight: 300;
   color: white;
@@ -407,7 +420,7 @@ main {
   font-size: 14px;
   opacity: 1;
   font-weight: 300;
-  color: #4285F4;
+  color: lightgray;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -460,18 +473,18 @@ main {
   justify-content: center;
 }
 
-.quickphonecontainer, .openinghourscontainer, .sharecontainer, .websitecontainer, .routesbutton {
+.quickphonecontainer, .openinghourscontainer, .sharecontainer, .websitecontainer {
   width: 76px;
   height: 76px;
   opacity: 0.8;
 }
 
-.quickphonecontainer:hover, .openinghourscontainer:hover, .sharecontainer:hover, .websitecontainer:hover, .routesbutton:hover {
+.quickphonecontainer:hover, .openinghourscontainer:hover, .sharecontainer:hover, .websitecontainer:hover {
   opacity: 1;
   cursor: pointer;
 }
 
-.quickphonecontainer:focus, .openinghourscontainer:focus, .sharecontainer:focus, .websitecontainer:focus, .expandarrow:focus, .routesbutton:focus {
+.quickphonecontainer:focus, .openinghourscontainer:focus, .sharecontainer:focus, .websitecontainer:focus, .expandarrow:focus {
   border: 2px solid #4285F4;
   opacity: 1;
   cursor: pointer;
@@ -519,13 +532,10 @@ main {
 }
 
 .expandarrow {
-  position: absolute;
+  width: 100%;
   bottom: 5px;
   left: 4px;
-  height: 50px;
-  background-color: #141c28;
-  border-radius: 5px;
-  border: 2px solid black;
+  height: 30px;
   opacity: 0.5;
 }
 
@@ -553,6 +563,10 @@ main {
 
 .trafficdurationDiv {
   text-align: left;
+}
+
+.arrowcontainer {
+  width: 100%;
 }
 
 @media all and (orientation:landscape) {

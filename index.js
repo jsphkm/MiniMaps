@@ -277,18 +277,20 @@ function processDirectionAndPlacesData(){
   quickaccessHandler();
   directionsRenderer.setMap(map);
   saveinputBuffer();
+  toggleRoutes();
   toggleView();
 }
 
 function renderDirectionsElements(){
   let directionsdiv = $('<div/>').attr('id', 'directions');
   directionsdiv.attr('class', 'hideElement');
-  $('.routescontainer').append(directionsdiv);
+  $('.routescontainer').prepend(directionsdiv);
   directionsRenderer.setPanel(document.getElementById('directions'));
 }
 
 function quickaccessHandler(){
   $('.openinghourscontainer').on('click', function(){
+    $('.mapsection').toggleClass('hideElement');
     if ($('.hourslistcontainer').length){
       $('.hourslistcontainer').remove();
     }
@@ -296,10 +298,6 @@ function quickaccessHandler(){
       renderInfoListElements();
     }
   });
-
-  $('.routesbutton').on('click', function(){
-    $('#directions').toggleClass('hideElement');
-  })
 }
 
 function renderInfoListElements(){
@@ -335,7 +333,7 @@ function renderRouteElements(){
   let routesdiv = $('<div/>').attr('class', 'routescontainer');
   let appendedroutesdiv = routesdiv.append(generateRouteInfoElements(directionserviceData.routes[0]));
 
-  $('.infocontainer').append(appendedroutesdiv);
+  $('.infocontainer').prepend(appendedroutesdiv);
 
   // for (let i = 0; i < directionserviceData.routes.length; i++){
   //   $('.routescontainer').append(generateRouteInfoElements(directionserviceData.routes[i]));
@@ -443,8 +441,20 @@ function convertMS(splitduration){
   return sum;
 }
 
+function toggleRoutes(){
+  $('.routeinfocontainer').on('click', function(){
+    $('#directions').toggleClass('hideElement');
+    if ($('.arrowimg').attr('src') == 'img/downarrow.svg') {
+      $('.arrowimg').attr('src', 'img/flatarrow.svg');
+    }
+    else {
+      $('.arrowimg').attr('src', 'img/downarrow.svg');
+    }
+  });
+}
+
 function toggleView(){
-  $('.shortbusinessinfoContainer, .routescontainer').on('click', function(){
+  $('.shortbusinessinfoContainer .arrowcontainer').on('click', function(){
     $('.mapsection').toggleClass('hideElement');
     //$('header').toggleClass('hideElement');
     if ($('.arrowimg').attr('src') == 'img/downarrow.svg') {
