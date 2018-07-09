@@ -69,7 +69,7 @@ function initMap() {
 
   directionsService = new google.maps.DirectionsService;
   directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
-  directionsRenderer.setPanel(document.getElementById('directions'));
+  //directionsRenderer.setPanel(document.getElementById('directions'));
   directionsRenderer.setMap(map);
 
   var searchfromInput = document.getElementById('searchfrominput');
@@ -273,24 +273,19 @@ function processDirectionAndPlacesData(){
   }
   renderRouteElements();
   renderQuickAccessElements();
+  renderDirectionsElements();
   quickaccessHandler();
-  shareHandler();
   directionsRenderer.setMap(map);
   saveinputBuffer();
   toggleView();
 }
 
-function shareHandler(){
-  // TODO: Try copying the link to the clipboard
-
-    // try {
-    //   let success = document.execCommand(endingPlaceData.url);
-    //   let msg = success ? 'copy success' : 'copy failed';
-    // } catch(err) {
-    //   console.log('Copy Error: try again');
-    // }
+function renderDirectionsElements(){
+  let directionsdiv = $('<div/>').attr('id', 'directions');
+  directionsdiv.attr('class', 'hideElement');
+  $('.routescontainer').append(directionsdiv);
+  directionsRenderer.setPanel(document.getElementById('directions'));
 }
-
 
 function quickaccessHandler(){
   $('.openinghourscontainer').on('click', function(){
@@ -300,8 +295,11 @@ function quickaccessHandler(){
     else{
       renderInfoListElements();
     }
-    hoursDisplay();
   });
+
+  $('.routesbutton').on('click', function(){
+    $('#directions').toggleClass('hideElement');
+  })
 }
 
 function renderInfoListElements(){
@@ -330,16 +328,18 @@ function renderQuickAccessElements(){
 }
 
 function renderRouteElements(){
-  //$('.routescontainer').html('');
-  // for (let i = 0; i < directionserviceData.routes.length; i++){
-  //   $('.routescontainer').append(generateRouteInfoElements(directionserviceData.routes[i]));
-  // }
+
   if ($('.routescontainer')){
     $('.routescontainer').remove();
   }
   let routesdiv = $('<div/>').attr('class', 'routescontainer');
   let appendedroutesdiv = routesdiv.append(generateRouteInfoElements(directionserviceData.routes[0]));
+
   $('.infocontainer').append(appendedroutesdiv);
+
+  // for (let i = 0; i < directionserviceData.routes.length; i++){
+  //   $('.routescontainer').append(generateRouteInfoElements(directionserviceData.routes[i]));
+  // }
 }
 
 
@@ -466,16 +466,6 @@ function toggleInputDisplay(){
   }
 }
 
-function hoursDisplay(){
-  $('.mapsection').toggleClass('hideElement');
-  if ($('.arrowimg').attr('src') == 'img/downarrow.svg') {
-    $('.arrowimg').attr('src', 'img/flatarrow.svg');
-  }
-  else {
-    $('.arrowimg').attr('src', 'img/downarrow.svg');
-  }
-}
-
 
 function loadmaster(){
   loadGoogleJS();
@@ -491,9 +481,6 @@ $(loadmaster);
 
 //  TODO:
 //  1. High Priority
-//    - Need to add navbar (connect the from link to editing home)
-//    - Make it responsive
-//    - Make it accessible
 //    - Complete readme
 //    - Option to save geolocation as starting loc again
 //  2. Mid Priority

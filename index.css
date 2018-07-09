@@ -43,8 +43,8 @@ input, button {
 
 ::placeholder {
   color: white;
-  opacity: 0.8;
-  font-weight:400;
+  opacity: 1;
+  font-weight: 400;
 }
 
 #searchfrominput, #searchtoinput {
@@ -60,7 +60,7 @@ input, button {
   background-color: #141c28;
   border-radius: 3px;
   border: 2px solid black;
-  margin-left: 30px;
+  margin-left: 35px;
 }
 
 .locationchoicecontainer {
@@ -110,7 +110,7 @@ input, button {
   display: flex;
   align-self: center;
   z-index: 1;
-  margin-left: 30px;
+  margin-left: 35px;
 }
 
 .searchiconimg {
@@ -164,7 +164,7 @@ main {
   width: 100%;
   float: right;
   background-color: #0e1219;
-  overflow: scroll;
+  /* overflow: scroll; */
   flex: 1 1 auto;
 }
 
@@ -223,7 +223,7 @@ main {
   color: white;
   /* line-height: 30px; */
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   float: left;
   clear: left;
 }
@@ -233,7 +233,7 @@ main {
 }
 
 .pac-item:hover, .pac-item:focus, .pac-item-selected {
-  background-color: #132035;
+  background-color: #2159a8;
   opacity: 1;
 }
 
@@ -252,24 +252,19 @@ main {
   line-height: 16px !important;
 }
 
-/* .pac-container::after {
-  margin-top: 20px;
-} */
-
 .redpinimg {
   width: 15px;
 }
 
-.routescontainer {
+/* .routescontainer {
   display: flex;
   flex-direction: row;
-}
+} */
 
 .routeinfocontainer {
   opacity: 1;
-  margin: 0px 9px;
-  background-color: #141c28;
-  width: 100%;
+  margin: 0px 9px 9px 9px;
+  background-color: #1b2638;
   padding: 9px;
   border-radius: 3px;
   border: 1px solid black;
@@ -283,7 +278,7 @@ main {
 .legsummaryDiv {
   color: #00FF88;
   opacity: 1;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 14px;
 }
 
@@ -436,7 +431,7 @@ main {
 
 .quickaccesscontainer {
   display: flex;
-  padding: 14px 9px 14px 9px;
+  padding: 2px 9px 14px 9px;
   justify-content: space-evenly;
   align-content: center;
 }
@@ -452,7 +447,6 @@ main {
   font-weight: 400;
   text-align: center;
   color: #4285F4;
-  opacity: 0.8;
 }
 
 .qaimg {
@@ -466,18 +460,18 @@ main {
   justify-content: center;
 }
 
-.quickphonecontainer, .openinghourscontainer, .sharecontainer, .websitecontainer {
+.quickphonecontainer, .openinghourscontainer, .sharecontainer, .websitecontainer, .routesbutton {
   width: 76px;
   height: 76px;
   opacity: 0.8;
 }
 
-.quickphonecontainer:hover, .openinghourscontainer:hover, .sharecontainer:hover, .websitecontainer:hover {
+.quickphonecontainer:hover, .openinghourscontainer:hover, .sharecontainer:hover, .websitecontainer:hover, .routesbutton:hover {
   opacity: 1;
   cursor: pointer;
 }
 
-.quickphonecontainer:focus, .openinghourscontainer:focus, .sharecontainer:focus, .websitecontainer:focus, .expandarrow:focus {
+.quickphonecontainer:focus, .openinghourscontainer:focus, .sharecontainer:focus, .websitecontainer:focus, .expandarrow:focus, .routesbutton:focus {
   border: 2px solid #4285F4;
   opacity: 1;
   cursor: pointer;
@@ -486,17 +480,20 @@ main {
 .hourslistcontainer {
   padding: 0px 14px 14px 14px;
   display: inline-flex;
+  width: 100%;
 }
 
 .hourslistul {
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hourslistul li {
   padding: 5px 0px;
   font-size: 14px;
-  opacity: 0.8;
-  display: inline-block;
+  float: left;
+  clear: left;
 }
 
 .sharelink {
@@ -524,16 +521,38 @@ main {
 .expandarrow {
   position: absolute;
   bottom: 5px;
-  left: 2px;
+  left: 4px;
   height: 50px;
-  width: 32px;
   background-color: #141c28;
   border-radius: 5px;
   border: 2px solid black;
+  opacity: 0.5;
 }
 
 .expandarrowimg {
   width: 15px;
+}
+
+#directions > div:last-child {
+  display: none;
+}
+
+.adp-listheader {
+  display: none !important;
+}
+
+#directions {
+  margin: 10px;
+}
+
+.adp-list {
+  border-radius: 4px;
+  border: 2px solid black;
+  font-size: 16px;
+}
+
+.trafficdurationDiv {
+  text-align: left;
 }
 
 @media all and (orientation:landscape) {

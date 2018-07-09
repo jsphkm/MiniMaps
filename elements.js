@@ -13,7 +13,7 @@ function generateRouteInfoElements(oneRoute) {
   if (msTrafficDuration >= 0 && msTrafficDuration <= msAverageDuration + 60000){
     durationAnalysis = 'The traffic is normal. You should leave now';
     colorduration = `<div class='trafficdurationDiv goodduration'>${trafficDuration}</div>`;
-    colordescription = `<div class='legsummaryDiv goodsummary'>Fastest via ${legSummary}</div>`;
+    colordescription = `<div class='legsummaryDiv goodsummary'>via ${legSummary}</div>`;
   }
   else {
     durationAnalysis = 'Ouch!  We can alert you when it cools down';
@@ -25,13 +25,12 @@ function generateRouteInfoElements(oneRoute) {
   console.log(`Traffic: ${trafficDuration}`);
   console.log(`Average: ${averageDuration}`);
   return `
-    <div class='routeinfocontainer'>
+    <div role='button' class='routeinfocontainer'>
       <div class='routeinfo'>
         ${colorduration}
         ${colordescription}
       </div>
     </div>
-    <div id='directions'></div>
   `;
 }
 
@@ -123,9 +122,17 @@ function generateQuickaccessElements(){
       </button>`
     infowebsite = endingPlaceData.website;
   }
+  let routes = `
+    <button role='button' class='routesbutton' tabindex='7'>
+      <div class='qadiv routes'>
+        <img role='img' class='qaimg' src='img/bluecar.svg' alt='route icon' />
+      </div>
+      <div class='qadesc'>ROUTES</div>
+    </button>`
+
   return `
     <div class='quickaccesscontainer'>
-      ${openinghours}${phonenumber}${website}
+      ${openinghours}${phonenumber}${website}${routes}
     </div>
   `;
 }
