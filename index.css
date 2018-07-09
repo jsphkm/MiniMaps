@@ -49,7 +49,7 @@ input, button {
 
 .topsearchform {
   height: 100%;
-  padding: 5pt;
+  padding: 3pt;
   /* display: flex;
   align-content: center;
   flex-direction: column; */
@@ -64,7 +64,10 @@ input, button {
   padding: 0px 45px 0px 40px;
   width: 100%;
   height: 100%;
-  opacity: 0.8;
+  opacity: 0.5;
+  background-color: #141c28;
+  border-radius: 3px;
+  border: 1px solid black;
 }
 
 .locationchoicecontainer {
@@ -83,6 +86,7 @@ input, button {
 #searchfrominput:focus, #searchtoinput:focus, .submitbutton:focus, .geolocationButton:focus {
   cursor: pointer;
   border: 2px solid #4285F4;
+  opacity: 1;
 }
 
 .submitbutton img {
@@ -112,6 +116,7 @@ input, button {
   padding-left: 11px;
   display: flex;
   align-self: center;
+  z-index: 1;
 }
 
 .searchiconimg {
@@ -120,11 +125,11 @@ input, button {
 }
 
 .topsearchcontainer {
-  height: 55px;
+  height: 50px;
   display: flex;
   position: relative;
   padding: 0;
-  margin: 0;
+  margin: 5px;
 }
 
 header {
@@ -156,7 +161,7 @@ main {
 .mapsection {
   position: relative;
   width: 100%;
-  height: 40vh;
+  height: 30vh;
   float: right;
   flex: 1 1 auto;
 }
@@ -260,12 +265,16 @@ main {
 .routescontainer {
   display: flex;
   flex-direction: row;
-  /* padding: 9px; */
 }
 
 .routeinfocontainer {
   opacity: 1;
-  margin: 0px 19px;
+  margin: 0px 9px;
+  background-color: #141c28;
+  width: 100%;
+  padding: 9px;
+  border-radius: 3px;
+  border: 1px solid black;
 }
 
 .routeinfo {
@@ -501,9 +510,12 @@ main {
   display: none;
 }
 
+.infolist {
+  display: none;
+}
+
 .infolist ul {
   margin: 0px 10px 10px 10px;
-  padding: 5px;
   background-color: #141c28;
   border: 1px solid black;
 }
@@ -531,5 +543,8 @@ main {
 @media (min-width: 600px) {
   main {
     flex-direction: row-reverse;
+  }
+  .mapsection {
+    height: 100%;
   }
 }
