@@ -97,6 +97,7 @@ function generateQuickaccessElements(){
   let phonenumber = '';
   let openinghours = '';
   let website = '';
+  let noinfomessage = '';
 
   if (endingPlaceData.international_phone_number){
     phonenumber = `
@@ -127,9 +128,13 @@ function generateQuickaccessElements(){
     infowebsite = endingPlaceData.website;
   }
 
+  if (openinghours == '' && phonenumber == '' && website == '') {
+    noinfomessage = 'No information available';
+  }
+
   return `
     <div class='quickaccesscontainer'>
-      ${openinghours}${phonenumber}${website}
+      ${openinghours}${phonenumber}${website}${noinfomessage}
     </div>
   `;
 }
