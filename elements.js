@@ -22,7 +22,7 @@ function generateRouteInfoElements(oneRoute) {
   }
 
   let routes = `
-    <div class='routesicon' tabindex='10'>
+    <div class='routesicon'>
       <img role='img' class='qaimg' src='img/bluecar.svg' alt='route icon' />
     </div>`
 
@@ -103,7 +103,7 @@ function generateQuickaccessElements(){
 
   if (endingPlaceData.international_phone_number){
     phonenumber = `
-      <a role='link' href='tel:${endingPlaceData.international_phone_number}' class='quickphonecontainer' role='button' tabindex='8'>
+      <a role='link' href='tel:${endingPlaceData.international_phone_number}' class='quickphonecontainer' role='button' tabindex='9'>
         <div class='qadiv quickphone'>
           <img role='img' class='qaimg' src='img/bluephone.svg' alt='bluephone icon'/>
         </div>
@@ -112,7 +112,7 @@ function generateQuickaccessElements(){
   }
   if (endingPlaceData.opening_hours){
     openinghours = `
-      <button role='button' class='openinghourscontainer' tabindex='7'>
+      <button role='button' class='openinghourscontainer' tabindex='8'>
         <div class='qadiv openinghours'>
           <img role='img' class='qaimg' src='img/bluehours.svg' alt='clock icon'/>
         </div>
@@ -121,7 +121,7 @@ function generateQuickaccessElements(){
   }
   if (endingPlaceData.website){
     website = `
-      <button role='button' onclick='window.open(endingPlaceData.website, "_blank")' class='websitecontainer' tabindex='9'>
+      <button role='button' onclick='window.open(endingPlaceData.website, "_blank")' class='websitecontainer' tabindex='10'>
         <div class='qadiv website'>
           <img role='img' class='qaimg' src='img/bluewebsite.svg' alt='globe icon' />
         </div>
@@ -155,7 +155,7 @@ function generateHoursElements(){
 function generateasideElements(){
   return `
     <aside role='complementary' class='infoaside'>
-      <button role='button' class='arrowcontainer'>
+      <button role='button' class='arrowcontainer' tabindex='7'>
         <a class='arrowicon'><img class='arrowimg' src='img/flatarrow.svg' alt='flat arrow icon'></a>
       </button>
       <div class='infocontainer'>

@@ -194,7 +194,6 @@ function onEnterHandler() {
 
   if (start && end) {
     resolveHandler(start, end);
-    //tryTextSearch(end);
   }
   else {
     directionsRenderer.setMap(null);
@@ -282,18 +281,21 @@ function renderDirectionsElements(){
 function quickaccessHandler(){
   $('.openinghourscontainer').on('click', function(){
     $('.mapsection').toggleClass('hideElement');
+    //$('header').toggleClass('hideElement');
+    if (!$('.mapsection').hasClass('hideElement')) {
+      $('.arrowimg').attr('src', 'img/flatarrow.svg');
+    }
+    else {
+      $('.arrowimg').attr('src', 'img/downarrow.svg');
+    }
     if ($('.hourslistcontainer').length){
       $('.hourslistcontainer').remove();
     }
     else{
-      renderInfoListElements();
+      let hours = generateHoursElements();
+      $('.infocontainer').append(hours);
     }
   });
-}
-
-function renderInfoListElements(){
-  let hours = generateHoursElements();
-  $('.infocontainer').append(hours);
 }
 
 function renderQuickAccessElements(){
@@ -407,10 +409,10 @@ function convertMS(splitduration){
 }
 
 function toggleView(){
-  $('.shortbusinessinfoContainer .arrowcontainer').on('click', function(){
+  $('.arrowcontainer').on('click', function(){
     $('.mapsection').toggleClass('hideElement');
     //$('header').toggleClass('hideElement');
-    if ($('.arrowimg').attr('src') == 'img/downarrow.svg') {
+    if (!$('.mapsection').hasClass('hideElement')) {
       $('.arrowimg').attr('src', 'img/flatarrow.svg');
     }
     else {
