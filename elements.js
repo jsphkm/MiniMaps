@@ -26,9 +26,6 @@ function generateRouteInfoElements(oneRoute) {
       <img role='img' class='qaimg' src='img/bluecar.svg' alt='route icon' />
     </div>`
 
-  console.log(durationAnalysis);
-  console.log(`Traffic: ${trafficDuration}`);
-  console.log(`Average: ${averageDuration}`);
   return `
     <div role='button' class='routeinfocontainer'>
       <div class='routeinfo'>
@@ -155,9 +152,11 @@ function generateHoursElements(){
 function generateasideElements(){
   return `
     <aside role='complementary' class='infoaside'>
-      <button role='button' class='arrowcontainer' tabindex='7'>
-        <a class='arrowicon'><img class='arrowimg' src='img/flatarrow.svg' alt='flat arrow icon'></a>
-      </button>
+      <div class='arrowcontainerwrapper'>
+        <button role='button' class='arrowcontainer' tabindex='7'>
+          <a class='arrowicon'><img class='arrowimg' src='img/flatarrow.svg' alt='flat arrow icon'></a>
+        </button>
+      </div>
       <div class='infocontainer'>
         <div class='shortbusinessinfoContainer'></div>
       </div>

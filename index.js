@@ -239,6 +239,7 @@ function processDirectionAndPlacesData(){
     $('.infoaside').remove();
   }
   $('main').append(generateasideElements());
+  $('.mapsection').css('height', '40vh');
   $('.shortbusinessinfoContainer').html('');
   $('.shortbusinessinfoContainer').html(ratingStarsElements);
   if ($('.ratingstars').length) {
@@ -280,22 +281,31 @@ function renderDirectionsElements(){
 
 function quickaccessHandler(){
   $('.openinghourscontainer').on('click', function(){
-    $('.mapsection').toggleClass('hideElement');
-    //$('header').toggleClass('hideElement');
-    if (!$('.mapsection').hasClass('hideElement')) {
-      $('.arrowimg').attr('src', 'img/flatarrow.svg');
+    if ($('.arrowcontainer').css('display') != 'none'){
+      $('.mapsection').toggleClass('hideElement');
+      toggleArrow();
     }
-    else {
-      $('.arrowimg').attr('src', 'img/downarrow.svg');
-    }
-    if ($('.hourslistcontainer').length){
-      $('.hourslistcontainer').remove();
-    }
-    else{
-      let hours = generateHoursElements();
-      $('.infocontainer').append(hours);
-    }
+    renderHoursList();
   });
+}
+
+function toggleArrow(){
+  if (!$('.mapsection').hasClass('hideElement')) {
+    $('.arrowimg').attr('src', 'img/flatarrow.svg');
+  }
+  else {
+    $('.arrowimg').attr('src', 'img/downarrow.svg');
+  }
+}
+
+function renderHoursList(){
+  if ($('.hourslistcontainer').length){
+    $('.hourslistcontainer').remove();
+  }
+  else{
+    let hours = generateHoursElements();
+    $('.infocontainer').append(hours);
+  }
 }
 
 function renderQuickAccessElements(){
@@ -430,7 +440,6 @@ function toggleInputDisplay(){
     $('.expandarrowimg').attr('src', 'img/expandarrow.svg');
   }
 }
-
 
 function loadmaster(){
   loadGoogleJS();

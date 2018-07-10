@@ -10,11 +10,11 @@ This is a basic implementation for estimating route duration and pulling locatio
 
 ## Header
 The user can estimate the driving time to a specific destination from current geolocation or a user specified location.
-The brief business title includes the rating, number of reviews, current operating status, and the address.
+The brief business information includes the title, rating, number of reviews, current operating status, and the address.
 
 
 ## User Interaction
-A list of buttons are available for instant interactions.  Hours button will preview the weekly operating hours, call button for directly dialing a phone call, and website for opening the main business website on a new tab.
+A list of buttons are available for instant interaction.  Hours button will preview the weekly operating hours, call button for directly dialing a phone call, and website for opening the main business website on a new tab.
 
 
 ## Built With
