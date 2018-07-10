@@ -137,7 +137,7 @@ function bluecrosshairEventHandler(){
 }
 
 function topsearchinputEventHandler(){
-  $( ".topsearchcontainer input" ).focus(function() {
+  $( '.topsearchcontainer input' ).focus(function() {
     saveinputBuffer();
   });
 
@@ -163,7 +163,7 @@ function topsearchinputEventHandler(){
   });
 
   google.maps.event.addListener(searchfromAutocomplete, 'place_changed', function() {
-      var data = $("#topsearchform").serialize();
+      var data = $('#topsearchform').serialize();
       handleinputvalues();
   });
 
@@ -266,7 +266,7 @@ function processDirectionAndPlacesData(){
   renderRouteElements();
   renderQuickAccessElements();
   renderDirectionsElements();
-  quickaccessHandler();
+  hourslistHandler();
   directionsRenderer.setMap(map);
   saveinputBuffer();
   toggleView();
@@ -279,12 +279,8 @@ function renderDirectionsElements(){
   directionsRenderer.setPanel(document.getElementById('directions'));
 }
 
-function quickaccessHandler(){
+function hourslistHandler(){
   $('.openinghourscontainer').on('click', function(){
-    if ($('.arrowcontainer').css('display') != 'none'){
-      $('.mapsection').toggleClass('hideElement');
-      toggleArrow();
-    }
     renderHoursList();
   });
 }
