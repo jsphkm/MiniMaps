@@ -1,11 +1,11 @@
 # MiniMaps
 This is a basic implementation for estimating route duration and pulling location information using several Google API's.
 
-![innout](https://user-images.githubusercontent.com/28643797/42488911-f98d1fe8-83bc-11e8-8028-c8cd102c4cac.png | width=250)
+![innout](https://user-images.githubusercontent.com/28643797/42488911-f98d1fe8-83bc-11e8-8028-c8cd102c4cac.png)
 
 
 ## Demo
-* [Live Demo] (https://jsphkm.github.io/MiniMaps/)
+* [Live Demo](https://jsphkm.github.io/MiniMaps/)
 
 
 ## Header
