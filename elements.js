@@ -30,13 +30,13 @@ function generateRouteInfoElements(oneRoute) {
   console.log(`Traffic: ${trafficDuration}`);
   console.log(`Average: ${averageDuration}`);
   return `
-    <button role='button' class='routeinfocontainer'>
+    <div role='button' class='routeinfocontainer'>
       <div class='routeinfo'>
         ${colorduration}
         ${colordescription}
       </div>
       <div class='routebuttoncontainer'>${routes}</div>
-    </button>
+    </div>
 
   `;
 }

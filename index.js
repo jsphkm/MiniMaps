@@ -158,20 +158,16 @@ function topsearchinputEventHandler(){
       if (end && !(end == document.getElementById('searchtoinput').value)) {
         directionsRenderer.setMap(null);
         resetMap();
-        console.log('map has been reset');
       }
     }
   });
 
   google.maps.event.addListener(searchfromAutocomplete, 'place_changed', function() {
       var data = $("#topsearchform").serialize();
-      console.log(data);
       handleinputvalues();
   });
 
   google.maps.event.addListener(searchtoAutocomplete, 'place_changed', function() {
-    let blah = document.getElementById('searchtoinput').value;
-    console.log(blah);
     handleinputvalues();
   });
 }
@@ -179,7 +175,6 @@ function topsearchinputEventHandler(){
 function saveinputBuffer(){
   if (document.activeElement.value) {
     inputbuffer = document.activeElement.value;
-    console.log(inputbuffer);
   };
 }
 
@@ -196,8 +191,6 @@ function handleinputvalues(){
 }
 
 function onEnterHandler() {
-  console.log('This start value is being passed at enterhandler');
-  console.log(start);
 
   if (start && end) {
     resolveHandler(start, end);
@@ -266,7 +259,6 @@ function processDirectionAndPlacesData(){
       startingname = `${startingPlaceData.name}, `;
     }
     document.getElementById('searchfrominput').value = `${startingname}${startingPlaceData.formatted_address}`;
-    console.log(startingPlaceData.formatted_address);
   }
   if ($('.hourslistcontainer').length){
     $('.hourslistcontainer').remove()
@@ -277,7 +269,6 @@ function processDirectionAndPlacesData(){
   quickaccessHandler();
   directionsRenderer.setMap(map);
   saveinputBuffer();
-  toggleRoutes();
   toggleView();
 }
 
@@ -302,7 +293,6 @@ function quickaccessHandler(){
 
 function renderInfoListElements(){
   let hours = generateHoursElements();
-  console.log(hours);
   $('.infocontainer').append(hours);
 }
 
@@ -334,28 +324,7 @@ function renderRouteElements(){
   let appendedroutesdiv = routesdiv.append(generateRouteInfoElements(directionserviceData.routes[0]));
 
   $('.infocontainer').prepend(appendedroutesdiv);
-
-  // for (let i = 0; i < directionserviceData.routes.length; i++){
-  //   $('.routescontainer').append(generateRouteInfoElements(directionserviceData.routes[i]));
-  // }
 }
-
-
-
-// function tryTextSearch(loc){
-//   let service = new google.maps.places.PlacesService(map);
-//   let request = {query: loc};
-//   service.textSearch(request, callback);
-//   function callback(results, status) {
-//     if(status == google.maps.places.PlacesServiceStatus.OK) {
-//       console.log(results);
-//       console.log('places success');
-//     }
-//     else {
-//       console.log('places failed');
-//     }
-//   }
-// }
 
 function resetMap() {
   for (var i = 0; i < markers.length; i++) {
@@ -383,7 +352,6 @@ function runDirectionServiceAPI(start, end) {
       let leg = response.routes[0].legs[0];
       makeMarker(leg.start_location, icons.start, 'Start Position');
       makeMarker(leg.end_location, icons.end, 'End Position');
-      console.log(response);
       let directionserviceResponse = response;
       deferred.resolve(directionserviceResponse);
     }
@@ -413,12 +381,9 @@ function runPlacesAPI(locationId){
     placeId: locationId
   }, function(place, status){
     if (status == google.maps.places.PlacesServiceStatus.OK){
-      console.log(place);
-      console.log('above is the newly fetched place data');
       deferred.resolve(place);
     }
     else {
-      console.log('runplaces failed');
       deferred.reject(0);
     }
   })
@@ -439,18 +404,6 @@ function convertMS(splitduration){
   mins ? convertedmins = mins*60*1000 : convertedmins = 0;
   let sum = converteddays + convertedhours + convertedmins;
   return sum;
-}
-
-function toggleRoutes(){
-  $('.routeinfocontainer').on('click', function(){
-    $('#directions').toggleClass('hideElement');
-    if ($('.arrowimg').attr('src') == 'img/downarrow.svg') {
-      $('.arrowimg').attr('src', 'img/flatarrow.svg');
-    }
-    else {
-      $('.arrowimg').attr('src', 'img/downarrow.svg');
-    }
-  });
 }
 
 function toggleView(){
@@ -487,13 +440,3 @@ function loadmaster(){
 }
 
 $(loadmaster);
-
-
-//  TODO:
-//  1. High Priority
-//    - Complete readme
-//    - Option to save geolocation as starting loc again
-//  2. Mid Priority
-//    - Add zoom in & out buttons
-//    - Add alarm feature
-//  3.
