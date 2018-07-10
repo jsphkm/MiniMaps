@@ -1,7 +1,7 @@
 # MiniMaps
 This is a basic implementation for estimating route duration and pulling location information using several Google API's.
 
-![innout](https://user-images.githubusercontent.com/28643797/42488911-f98d1fe8-83bc-11e8-8028-c8cd102c4cac.png)
+![innout](https://user-images.githubusercontent.com/28643797/42540555-b3e7d37e-8453-11e8-979b-0733f6250081.png)
 
 
 ## Demo
@@ -15,6 +15,10 @@ The brief business information includes the title, rating, number of reviews, cu
 
 ## User Interaction
 A list of buttons are available for instant interaction.  Hours button will preview the weekly operating hours, call button for directly dialing a phone call, and website for opening the main business website on a new tab.
+
+
+The site is designed with a responsive layout:
+![ipadinnout](https://user-images.githubusercontent.com/28643797/42540731-85d9dce2-8454-11e8-9f24-65b5162499e8.png)<!-- .element width="50%" -->
 
 
 ## Built With
