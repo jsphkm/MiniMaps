@@ -281,6 +281,10 @@ function renderDirectionsElements(){
 
 function hourslistHandler(){
   $('.openinghourscontainer').on('click', function(){
+    if ($('main').css('flex-direction') != 'row-reverse'){
+      $('.mapsection').toggleClass('hideElement');
+      toggleArrow();
+    }
     renderHoursList();
   });
 }

@@ -261,7 +261,7 @@ main {
 .routeinfocontainer {
   min-width: 220px;
   opacity: 1;
-  margin: 10px 9px 9px 9px;
+  margin: 14px 9px 9px 9px;
   background-color: #1b2638;
   padding: 9px;
   border-radius: 3px;
@@ -511,7 +511,7 @@ main {
   display: none;
 }
 
-.arrowcontainer {
+/* .arrowcontainer {
   width: 100%;
   margin-bottom: 5px;
   text-align: center;
@@ -530,7 +530,7 @@ main {
 .arrowimg {
   width: 22px;
   vertical-align: middle;
-}
+} */
 
 .expandarrow {
   width: 100%;
@@ -577,9 +577,7 @@ main {
   .infoaside {
     overflow: auto;
   }
-  .arrowcontainer {
-    display: none;
-  }
+
 }
 
 @media (min-width: 600px) {
@@ -593,7 +591,5 @@ main {
   .infoaside {
     overflow: auto;
   }
-  .arrowcontainer {
-    display: none;
-  }
+
 }
