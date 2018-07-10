@@ -10,6 +10,16 @@ function generateRouteInfoElements(oneRoute) {
   let legDistance = oneRoute.legs[0].distance.text;
   let durationAnalysis;
   let colorduration;
+  if (msTrafficDuration >= 0 && msTrafficDuration <= msAverageDuration + 60000){
+    durationAnalysis = 'The traffic is normal. You should leave now';
+    colorduration = `<div class='trafficdurationDiv goodduration'>${trafficDuration}</div>`;
+    colordescription = `<div class='legsummaryDiv goodsummary'>via ${legSummary}</div>`;
+  }
+  else {
+    durationAnalysis = 'Ouch!  We can alert you when it cools down';
+    colorduration = `<div class='trafficdurationDiv badduration'>${trafficDuration}</div>`;
+    colordescription = `<div class='legsummaryDiv badsummary'>via ${legSummary}</div>`;
+  }
 
   let routes = `
     <div class='routesicon'>
@@ -142,7 +152,7 @@ function generateHoursElements(){
 function generateasideElements(){
   return `
     <aside role='complementary' class='infoaside'>
-      <div class='infocontainer' aria-live="polite">
+      <div class='infocontainer'>
         <div class='shortbusinessinfoContainer'></div>
       </div>
     </aside>

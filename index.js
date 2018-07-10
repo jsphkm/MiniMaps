@@ -2,10 +2,12 @@ function loadGoogleJS(){
   $('#searchtoinput').focus();
   if (document.querySelectorAll('#map').length > 0)
   {
-    if (document.querySelector('html').lang)
+    if (document.querySelector('html').lang) {
       lang = document.querySelector('html').lang;
-    else
+    }
+    else {
       lang = 'en';
+    }
     var js_file = document.createElement('script');
     js_file.type = 'text/javascript';
     js_file.src = 'https://maps.googleapis.com/maps/api/js?&callback=initMap&key=AIzaSyAln4UsUGOrVtX4MGg4e0mGXY2GK-helLE&libraries=places&language=' + lang;
