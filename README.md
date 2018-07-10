@@ -17,10 +17,6 @@ The brief business information includes the title, rating, number of reviews, cu
 A list of buttons are available for instant interaction.  Hours button will preview the weekly operating hours, call button for directly dialing a phone call, and website for opening the main business website on a new tab.
 
 
-The site is designed with a responsive layout:
-![ipadinnout](https://user-images.githubusercontent.com/28643797/42540731-85d9dce2-8454-11e8-9f24-65b5162499e8.png)<!-- .element width="50%" -->
-
-
 ## Built With
 * Maps Javascript API
 * Directions API
