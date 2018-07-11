@@ -21,7 +21,6 @@ var yourlocationmarker;
 let enterkeycode = 13;
 let escapekeycode = 27;
 let downarrowkeycode = 40;
-//let customstartingPos;
 let geoPos;
 let start;
 let end;
@@ -71,14 +70,12 @@ function initMap() {
 
   directionsService = new google.maps.DirectionsService;
   directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
-  //directionsRenderer.setPanel(document.getElementById('directions'));
   directionsRenderer.setMap(map);
 
   var searchfromInput = document.getElementById('searchfrominput');
   var searchtoInput = document.getElementById('searchtoinput');
   searchfromAutocomplete = new google.maps.places.Autocomplete(searchfromInput);
   searchtoAutocomplete = new google.maps.places.Autocomplete(searchtoInput);
-  // $('#autocomplete').append($('.pac-container'));
 
   var trafficLayer = new google.maps.TrafficLayer();
   trafficLayer.setMap(map);
@@ -243,6 +240,7 @@ function checkEndingPlaceData(){
     endingIdKeeper = currentendingId;
     runPlacesAPI(currentendingId).then(place => {
       endingPlaceData = place;
+      console.log(place);
       processDirectionAndPlacesData();
     })
   }
@@ -440,7 +438,6 @@ function convertMS(splitduration){
 function toggleView(){
   $('.arrowcontainer').on('click', function(){
     $('.mapsection').toggleClass('hideElement');
-    //$('header').toggleClass('hideElement');
     if (!$('.mapsection').hasClass('hideElement')) {
       $('.arrowimg').attr('src', 'img/flatarrow.svg');
     }
