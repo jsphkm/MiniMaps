@@ -85,6 +85,18 @@ function initMap() {
   topsearchinputEventHandler();
 }
 
+function removeIntroContents(){
+  if ($('.intromessage').length){
+    $('.intromessage').remove();
+  }
+  if ($('.firstgeobtncontainer').length){
+    $('.firstgeobtncontainer').remove();
+  }
+  if ($('.logocontainer').length){
+    $('.logocontainer').remove();
+  }
+}
+
 function fetchYourGeolocation(){
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -143,11 +155,16 @@ function topsearchinputEventHandler(){
     saveinputBuffer();
   });
 
-  $(document).on('keyup keypress submit', '.topsearchform', function(e){
+  $(document).on('keyup submit', '.topsearchform', function(e){
+    e.preventDefault;
+    console.log(e.type);
     if (e.which == enterkeycode || e.type == 'submit') {
       e.preventDefault();
       if ($('#searchfrominput').val() == '') {
         document.getElementById('searchfrominput').focus();
+        if ($('.topsearchform div:first-child').hasClass('hideElement')){
+          toggleInputDisplay();
+        }
       }
       if ($('#searchfrominput').val() !== '' && $('#searchtoinput').val() == '') {
         document.getElementById('searchtoinput').focus();
@@ -193,7 +210,6 @@ function handleinputvalues(){
 }
 
 function onEnterHandler() {
-
   if (start && end) {
     resolveHandler(start, end);
   }
@@ -374,6 +390,7 @@ function runDirectionServiceAPI(start, end) {
       deferred.reject(0);
     }
   });
+  removeIntroContents();
   return deferred.promise();
 }
 
@@ -441,11 +458,24 @@ function toggleInputDisplay(){
   else {
     $('.expandarrowimg').attr('src', 'img/expandarrow.svg');
   }
+  $('.logocontainer').toggleClass('hideElement');
+  if ($('.intromessage').length){
+    $('.intromessage').remove();
+  }
+  if ($('.firstgeobtncontainer').length){
+    $('.firstgeobtncontainer').toggleClass('hideElement');
+  }
+}
+
+function firstfetchgeoloc(){
+  $('.firstgeobtn').on('click', function(){
+    fetchYourGeolocation()
+  });
 }
 
 function loadmaster(){
   loadGoogleJS();
-  fetchYourGeolocation();
+  firstfetchgeoloc();
   bluecrosshairEventHandler();
   $('.expandarrow').click(function(){
     toggleInputDisplay();
