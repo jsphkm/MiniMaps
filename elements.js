@@ -129,7 +129,7 @@ function generateQuickaccessElements(){
   }
 
   if (openinghours == '' && phonenumber == '' && website == '') {
-    noinfomessage = `<div class='noinfomessage'>No other information available</div>`;
+    noinfomessage = `<div class='noinfomessage'>No other information is available for this location</div>`;
   }
 
   return `
