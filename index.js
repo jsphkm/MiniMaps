@@ -89,8 +89,12 @@ function removeIntroContents(){
   if ($('.firstgeobtncontainer').length){
     $('.firstgeobtncontainer').remove();
   }
-  if ($('.logocontainer').length){
-    $('.logocontainer').remove();
+  // if ($('.logocontainer').length){
+  //   $('.logocontainer').remove();
+  // }
+  if ($('.logoimg').attr('src', 'img/logo.svg')) {
+    $('.logoimg').attr('src', 'img/logoicon.svg');
+    $('.logoimg').addClass('smallicon');
   }
 }
 

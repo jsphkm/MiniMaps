@@ -554,6 +554,10 @@ main {
   margin-right: auto;
 }
 
+.smallicon {
+  width: 50px !important;
+}
+
 .intromessage {
   text-align: center;
   font-size: 14px;

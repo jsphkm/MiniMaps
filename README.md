@@ -1,6 +1,7 @@
 # MiniMaps
 This is a basic implementation for estimating route duration and pulling location information using several Google API's.
 
+![landscape](https://user-images.githubusercontent.com/28643797/42599536-6823968c-8514-11e8-99ad-26902c312d38.png)
 ![innout](https://user-images.githubusercontent.com/28643797/42541088-da5917d2-8455-11e8-982f-1056bea3bbed.png)
 
 
