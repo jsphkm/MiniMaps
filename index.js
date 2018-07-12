@@ -129,9 +129,6 @@ function fetchYourGeolocation(){
       if (end) {
         onEnterHandler();
       }
-    },
-    function() {
-      toggleInputDisplay()
     });
   }
 }
