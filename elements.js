@@ -1,30 +1,28 @@
 function generateRouteInfoElements(oneRoute) {
-  let splitTrafficDuration = oneRoute.legs[0].duration_in_traffic.text.split(' ');
-  let splitAverageDuration = oneRoute.legs[0].duration.text.split(' ');
-  msTrafficDuration = convertMS(splitTrafficDuration);
-  msAverageDuration = convertMS(splitAverageDuration);
+  const splitTrafficDuration = oneRoute.legs[0].duration_in_traffic.text.split(' ');
+  const splitAverageDuration = oneRoute.legs[0].duration.text.split(' ');
+  const msTrafficDuration = convertMS(splitTrafficDuration);
+  const msAverageDuration = convertMS(splitAverageDuration);
 
-  let legSummary = oneRoute.summary;
-  let trafficDuration = oneRoute.legs[0].duration_in_traffic.text;
-  let averageDuration = oneRoute.legs[0].duration.text;
-  let legDistance = oneRoute.legs[0].distance.text;
+  const legSummary = oneRoute.summary;
+  const trafficDuration = oneRoute.legs[0].duration_in_traffic.text;
   let durationAnalysis;
   let colorduration;
-  if (msTrafficDuration >= 0 && msTrafficDuration <= msAverageDuration + 60000){
+  let colordescription;
+  if (msTrafficDuration >= 0 && msTrafficDuration <= msAverageDuration + 60000) {
     durationAnalysis = 'The traffic is normal. You should leave now';
     colorduration = `<div class='trafficdurationDiv goodduration'>${trafficDuration}</div>`;
     colordescription = `<div class='legsummaryDiv goodsummary'>via ${legSummary}</div>`;
-  }
-  else {
+  } else {
     durationAnalysis = 'Ouch!  We can alert you when it cools down';
     colorduration = `<div class='trafficdurationDiv badduration'>${trafficDuration}</div>`;
     colordescription = `<div class='legsummaryDiv badsummary'>via ${legSummary}</div>`;
   }
 
-  let routes = `
+  const routes = `
     <div class='routesicon'>
       <img role='img' class='qaimg' src='img/bluecar.svg' alt='route icon' />
-    </div>`
+    </div>`;
 
   return `
     <div role='button' class='routeinfocontainer'>
@@ -38,7 +36,7 @@ function generateRouteInfoElements(oneRoute) {
   `;
 }
 
-function generateEndingDetailedElements(){
+function generateEndingDetailedElements() {
   let ratingnum;
   let ratingStars;
   let operatingstatus;
@@ -47,26 +45,25 @@ function generateEndingDetailedElements(){
   let reviewsNumElements = '';
   let operatingstatusElements = '';
 
-  //if ("rating" in endingPlaceData){
-  if (endingPlaceData.hasOwnProperty('rating')){
+  if (endingPlaceData.hasOwnProperty('rating')) {
     ratingnum = endingPlaceData.rating;
     ratingStars = generateRatingStars();
     ratingNumStarsElements = `
       <div class='ratingsnumDisplay'>${ratingnum}</div>
       <div class='ratingsstarsDisplay'>${ratingStars}</div>`;
   }
-  if (endingPlaceData.reviews){
+  if (endingPlaceData.reviews) {
     reviewsnum = `(${endingPlaceData.reviews.length})`
     reviewsNumElements = `
       <div class='reviewsnumDisplay'>${reviewsnum}</div>
-    `
+    `;
   }
 
-  if (endingPlaceData.opening_hours){
+  if (endingPlaceData.opening_hours) {
     endingPlaceData.opening_hours.open_now ? operatingstatus = 'Open' : operatingstatus = 'Closed';
     operatingstatusElements = `
       <div class='operatingstatusDisplay'>${operatingstatus}</div>
-    `
+    `;
   }
 
   return `
@@ -84,7 +81,7 @@ function generateEndingDetailedElements(){
   `;
 }
 
-function generateRatingStars(){
+function generateRatingStars() {
   return `
   <div class='ratingstars'>
     <div id='ratingstarsTop' style='width=0%'><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
@@ -93,13 +90,13 @@ function generateRatingStars(){
   `;
 }
 
-function generateQuickaccessElements(){
+function generateQuickaccessElements() {
   let phonenumber = '';
   let openinghours = '';
   let website = '';
   let noinfomessage = '';
 
-  if (endingPlaceData.international_phone_number){
+  if (endingPlaceData.international_phone_number) {
     phonenumber = `
       <a role='link' href='tel:${endingPlaceData.international_phone_number}' class='quickphonecontainer' role='button' tabindex='9'>
         <div class='qadiv quickphone'>
@@ -108,28 +105,28 @@ function generateQuickaccessElements(){
         <div class='qadesc'>CALL</div>
       </a>`
   }
-  if (endingPlaceData.opening_hours){
+  if (endingPlaceData.opening_hours) {
     openinghours = `
       <button role='button' class='openinghourscontainer' tabindex='8'>
         <div class='qadiv openinghours'>
           <img role='img' class='qaimg' src='img/bluehours.svg' alt='clock icon'/>
         </div>
         <div class='qadesc'>HOURS</div>
-      </button>`
+      </button>`;
   }
-  if (endingPlaceData.website){
+  if (endingPlaceData.website) {
     website = `
       <button role='button' onclick='window.open(endingPlaceData.website, "_blank")' class='websitecontainer' tabindex='10'>
         <div class='qadiv website'>
           <img role='img' class='qaimg' src='img/bluewebsite.svg' alt='globe icon' />
         </div>
         <div class='qadesc'>WEBSITE</div>
-      </button>`
+      </button>`;
     infowebsite = endingPlaceData.website;
   }
 
-  if (openinghours == '' && phonenumber == '' && website == '') {
-    noinfomessage = `<div class='noinfomessage'>No other information is available for this location</div>`;
+  if (openinghours === '' && phonenumber === '' && website === '') {
+    noinfomessage = "<div class='noinfomessage'>No other information is available for this location</div>";
   }
 
   return `
@@ -139,14 +136,14 @@ function generateQuickaccessElements(){
   `;
 }
 
-function generateHoursElements(){
-  if ($('.hourslistcontainer').length){
+function generateHoursElements() {
+  if ($('.hourslistcontainer').length) {
     $('.hourslistcontainer').remove()
   }
-  let routesdiv = $('<div/>').attr('class', 'hourslistcontainer');
-  let routesul = $('<ul/>').attr('class', 'hourslistul');
+  const routesdiv = $('<div/>').attr('class', 'hourslistcontainer');
+  const routesul = $('<ul/>').attr('class', 'hourslistul');
   if (endingPlaceData.opening_hours) {
-    for (let i = 0; i < endingPlaceData.opening_hours.weekday_text.length; i++){
+    for (let i = 0; i < endingPlaceData.opening_hours.weekday_text.length; i += 1) {
       routesul.append(`<li>${endingPlaceData.opening_hours.weekday_text[i]}</li>`);
     }
   }
@@ -154,12 +151,12 @@ function generateHoursElements(){
   return routesdiv;
 }
 
-function generateasideElements(){
+function generateasideElements() {
   return `
     <aside role='complementary' class='infoaside'>
       <div class='infocontainer'>
         <div class='shortbusinessinfoContainer'></div>
       </div>
     </aside>
-  `
+  `;
 }
