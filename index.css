@@ -70,7 +70,7 @@ input, button {
 }
 
 #searchfrominput:focus,
-#searchtoinput:focus, {
+#searchtoinput:focus {
   opacity: 1;
 }
 
@@ -187,10 +187,10 @@ main {
   border-radius: 40%;
   box-shadow: 0 1px 4px rgba(0,0,0,0.3);
   cursor: pointer;
-  /* margin-right: 10px; */
   padding: 0px;
   display: flex;
   justify-content: center;
+  align-items: center;
   opacity: 1;
 }
 
